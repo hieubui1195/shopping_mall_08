@@ -22,8 +22,6 @@ class CreateReviewsTable extends Migration
             $table->integer('rate')->unsigned();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('product_id')->references('id')->on('products')
-                    ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

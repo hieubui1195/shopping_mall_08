@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateImagesTable extends Migration
+class AddForeignKeyToOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
-            $table->increments('id');
-            $table->binary('image');
-            $table->integer('image_id')->unsigned()->index();
-            $table->string('image_type');
-            $table->timestamps();
+        Schema::table('orders', function (Blueprint $table) {
+            $table->foreign('email')->references('email')->on('users')
+                    ->onUpdate('cascade')->onDelete('cascade');
         });
     }
-
 
     /**
      * Reverse the migrations.
@@ -30,6 +26,8 @@ class CreateImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        Schema::table('orders', function (Blueprint $table) {
+            //
+        });
     }
 }

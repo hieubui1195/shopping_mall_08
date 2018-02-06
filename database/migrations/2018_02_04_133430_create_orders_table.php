@@ -23,8 +23,6 @@ class CreateOrdersTable extends Migration
             $table->tinyInteger('state');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('email')->references('email')->on('users')
-                    ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
