@@ -20,10 +20,6 @@ class CreatePromotionDetailsTable extends Migration
             $table->integer('percent')->unsigned();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('promotion_id')->references('id')->on('promotions')
-                    ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')
-                    ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
