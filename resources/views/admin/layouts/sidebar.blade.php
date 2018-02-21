@@ -11,26 +11,28 @@
             </div>
         </div>
 
-        <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
-            <li>
-                <hr />
-            </li>
-            <li>
-                <a href="">
-                    @lang('custom.common.change_language')
-                    <a href="{!! route('admin.change-language', ['en']) !!}" class="changeLang" data-lang="en" style="color: black;">
-                        <img src="{{ asset('images/en.png') }}" alt="English" />
-                        English
-                    </a>
-                    <a href="{!! route('admin.change-language', ['vi']) !!}" class="changeLang" data-lang="vi" style="color: black;">
-                        <img src="{{ asset('images/vi.png') }}" alt="Vietnamese" />
-                        Tiếng Việt
-                    </a>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fas fa-globe"></i> <span>@lang('custom.common.change_language')</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
                 </a>
-            </li>
-            <li>
-                <hr />
+                <ul class="treeview-menu">
+                    <li>
+                        <a href="{!! route('admin.change-language', ['en']) !!}">
+                            <img src="{{ asset('images/en.png') }}" alt="English" />
+                            English
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{!! route('admin.change-language', ['vi']) !!}">
+                            <img src="{{ asset('images/vi.png') }}" alt="Vietnamese" />
+                            Tiếng Việt
+                        </a>
+                    </li>
+                </ul>
             </li>
             <li>
                 <a href="">
@@ -39,7 +41,7 @@
             </li>
             <li>
                 <a href="">
-                    <i class="fa fa-product-hunt"></i> <span>@lang('custom.nav.products')</span>
+                    <i class="fab fa-product-hunt"></i> <span>@lang('custom.nav.products')</span>
                 </a>
             </li>
             <li>

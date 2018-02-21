@@ -6,9 +6,11 @@
 <!-- Bootstrap 3.3.7 -->
 <link rel="stylesheet" href="{{ asset('assets/bootstrap/dist/css/bootstrap.min.css') }}">
 <!-- Font Awesome -->
-<link rel="stylesheet" href="{{ asset('assets/font-awesome/css/font-awesome.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/components-font-awesome/css/fontawesome-all.min.css') }}">
 <!-- Ionicons -->
 <link rel="stylesheet" href="{{ asset('assets/Ionicons/css/ionicons.min.css') }}">
+<!-- jvectormap -->
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/jvectormap/jquery-jvectormap.css') }}">
 <!-- Theme style -->
 <link rel="stylesheet" href="{{ asset('dist/css/AdminLTE.min.css') }}">
 <!-- AdminLTE Skins -->

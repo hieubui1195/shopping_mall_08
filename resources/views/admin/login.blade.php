@@ -28,7 +28,7 @@
     <!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">
-            {{ __('custom.admin_login.title') }}
+            @lang('custom.admin_login.title')
         </p>
 
         @if (session('status'))
@@ -37,7 +37,7 @@
             </ul>
         @endif
 
-        <form method="POST" action="{{ route('getLogin') }}">
+        <form method="POST" action="{{ route('admin.getLogin') }}">
             {{ csrf_field() }}
 
             <div class="form-group has-feedback{{ $errors->has('email') ? ' has-error' : '' }}">

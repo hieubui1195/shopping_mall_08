@@ -15,11 +15,16 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::prefix('admin')->namespace('Admin')->group(function () {
+Route::group(['prefix'=>'admin', 'as'=>'admin.', 'namespace' => 'Admin'],function(){
     Route::get('login', 'AdminLoginController@getLogin')->name('getLogin');
 	Route::post('login', 'AdminLoginController@postLogin')->name('postLogin');
 	Route::post('logout', 'AdminLoginController@getLogout')->name('getLogout');
 
-    Route::get('/', 'HomeController@index')->middleware('CheckAdminLogin')->name('admin.home');
+    Route::get('/', 'HomeController@index')->middleware('CheckAdminLogin')->name('home');
+
+    Route::get('change-language/{language}', 'HomeController@changeLanguage')->name('change-language');
+
+    Route::resource('category', 'CategoryController');
+
 });
 
