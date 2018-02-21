@@ -10,7 +10,8 @@
     <nav class="navbar navbar-static-top" style="padding: 0px">
         <!-- Sidebar toggle button-->
         <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-            <span class="sr-only">Toggle navigation</span>
+            <i class="fa fa-bars"></i>
+            {{-- <span class="sr-only">Toggle navigation</span> --}}
         </a>
 
         <div class="navbar-custom-menu">
@@ -32,13 +33,13 @@
                                 <a href="#" class="btn btn-default btn-flat">@lang('custom.common.profile_button')</a>
                             </div>
                             <div class="btn btn-default pull-right">
-                                <a href="{{ route('getLogout') }}"
+                                <a href="{{ route('admin.getLogout') }}"
                                     onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">
                                     @lang('custom.common.logout_button')
                                 </a>
 
-                                <form id="logout-form" action="{{ route('getLogout') }}" method="POST" style="display: none;">
+                                <form id="logout-form" action="{{ route('admin.getLogout') }}" method="POST" style="display: none;">
                                     {{ csrf_field() }}
                                 </form>
                             </div>

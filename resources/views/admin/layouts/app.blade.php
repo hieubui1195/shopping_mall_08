@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     @include('admin.layouts.head')
+
+    <style type="text/css">
+        .main-header .sidebar-toggle:before {
+            content: "";
+        }
+        .main-header .sidebar-toggle {
+            padding: 10px 15px;
+        }
+    </style>
 
     @section('style')
 		@show
 </head>
-<body class="hold-transition skin-red-light sidebar-mini">
+<body class="skin-red sidebar-mini">
     <div class="wrapper">
     @include('admin.layouts.header')
 

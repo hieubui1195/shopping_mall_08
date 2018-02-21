@@ -9,10 +9,11 @@
 
 <!-- jQuery -->
 <script src="{{ asset('assets/jquery/dist/jquery.min.js') }}"></script>
-<!-- jQuery UI -->
-<script src="{{ asset('assets/jquery-ui/jquery-ui.min.js') }}"></script>
 <!-- Bootstrap -->
 <script src="{{ asset('assets/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/fastclick/lib/fastclick.js') }}"></script>
+<script src="{{ asset('assets/jvectormap/jquery-jvectormap.js') }}"></script>
+<script src="{{ asset('assets/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
