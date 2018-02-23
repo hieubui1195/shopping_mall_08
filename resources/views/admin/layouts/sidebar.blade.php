@@ -4,60 +4,84 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image" style="float: left;">
-                <img src="" class="img-circle" alt="User Image" />
+                {!! Html::image(
+                    'images' . $avatar, 
+                    'User Image', 
+                    [
+                        'class' => 'img-circle'
+                    ]
+                ) !!} 
             </div>
             <div class="pull-left info" style="float: left;">
-                <p>{{ Auth::user()->name }}</p>
+                <p>{!! Auth::user()->name !!}</p>
             </div>
         </div>
 
         <ul class="sidebar-menu" data-widget="tree">
             <li class="treeview">
-                <a href="#">
-                    <i class="fas fa-globe"></i> <span>@lang('custom.common.change_language')</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
+
+                {!! html_entity_decode(Html::link(null, 
+                    '<i class="fas fa-globe"></i> <span>' . 
+                    Lang::get('custom.common.change_language') . 
+                    '</span><span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i></span>')) !!}
+
                 <ul class="treeview-menu">
                     <li>
-                        <a href="{!! route('admin.change-language', ['en']) !!}">
-                            <img src="{{ asset('images/en.png') }}" alt="English" />
-                            English
-                        </a>
+                        {!! html_entity_decode(Html::linkRoute('admin.change-language', 
+                        Html::image('images/en.png') . Lang::get('custom.common.en'), 
+                        [
+                            'lang' => 'en'
+                        ])) !!}
                     </li>
                     <li>
-                        <a href="{!! route('admin.change-language', ['vi']) !!}">
-                            <img src="{{ asset('images/vi.png') }}" alt="Vietnamese" />
-                            Tiếng Việt
-                        </a>
+                        {!! html_entity_decode(Html::linkRoute('admin.change-language', 
+                        Html::image('images/vi.png') . Lang::get('custom.common.vi'), 
+                        [
+                            'lang' => 'vi'
+                        ])) !!}
                     </li>
                 </ul>
             </li>
             <li>
-                <a href="">
-                    <i class="fa fa-list"></i> <span>@lang('custom.nav.categories')</span>
-                </a>
+                {!! html_entity_decode(
+                    Html::link(
+                        null, 
+                        '<i class="fa fa-list"></i> <span>' .  Lang::get('custom.nav.categories') . '</span>'
+                    )
+                ) !!}
             </li>
             <li>
-                <a href="">
-                    <i class="fab fa-product-hunt"></i> <span>@lang('custom.nav.products')</span>
-                </a>
+                {!! html_entity_decode(
+                    Html::link(
+                        null, 
+                        '<i class="fab fa-product-hunt"></i> <span>' . Lang::get('custom.nav.products') . '</span>'
+                    )
+                ) !!}
             </li>
             <li>
-                <a href="">
-                    <i class="fa fa-plus"></i> <span>@lang('custom.nav.promotions')</span>
-                </a>
+                {!! html_entity_decode(
+                    Html::link(
+                        null, 
+                        '<i class="fa fa-plus"></i> <span>' . Lang::get('custom.nav.promotions') . '</span>'
+                    )
+                ) !!}
             </li>
             <li>
-                <a href="">
-                    <i class="fa fa-file"></i> <span>@lang('custom.nav.orders')</span>
-                </a>
+                {!! html_entity_decode(
+                    Html::link(
+                        null, 
+                        '<i class="fa fa-file"></i> <span>' . Lang::get('custom.nav.orders') . '</span>'
+                    )
+                ) !!}
             </li>
             <li>
-                <a href="">
-                    <i class="fa fa-users"></i> <span>@lang('custom.nav.accounts')</span>
-                </a>
+                {!! html_entity_decode(
+                    Html::link(
+                        null, 
+                        '<i class="fa fa-users"></i> <span>' . Lang::get('custom.nav.accounts') . '</span>'
+                    )
+                ) !!}
             </li>
     </section>
     <!-- /.sidebar -->

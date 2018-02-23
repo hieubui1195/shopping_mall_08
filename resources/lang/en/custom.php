@@ -19,6 +19,13 @@ return [
         'accounts' => 'Accounts',
     ],
 
+    'footer' => [
+        'version' => 'Version 2.4.0',
+        'copyright' => 'Copyright &copy; 2014-2016',
+        'author' => 'Almsaeed Studio. ',
+        'reserved' => 'All rights reserved.',
+    ],
+
     'homepage' => [
         'order' => 'New Orders',
         'user' => 'Users',
@@ -27,6 +34,10 @@ return [
     ],
 
     'common' => [
+        'title' => 'E-Shop | Admin',
+        'en' => 'English',
+        'vi' => 'Tiếng Việt',
+        'logo' => 'E-Shop',
         'profile_button' => 'Profile',
         'logout_button' => 'Logout',
         'change_language' => 'Language:',

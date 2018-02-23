@@ -22,6 +22,7 @@ class CheckAdminLogin
         if ($user && $user->level == $adminLevel) {
             return $next($request);
         }
-        return redirect('admin/login');         
+        
+        return redirect()->route('admin.getLogin');         
     }
 }

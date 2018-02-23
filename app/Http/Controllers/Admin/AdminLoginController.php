@@ -20,14 +20,16 @@ class AdminLoginController extends Controller
         MyFunctions::changeLanguage();
 
         if (Auth::check()) {
-            return redirect('admin');
-        } else {
-            return view('admin.login');
+            return redirect()->route('admin.home');
         }
+
+        return view('admin.login');
     }
 
     public function postLogin(LoginRequest $request)
     {
+        MyFunctions::changeLanguage();
+        
         $login = [
             'email' => $request->email,
             'password' => $request->password,
@@ -35,13 +37,14 @@ class AdminLoginController extends Controller
         ];
 
         if (Auth::attempt($login)) {
-            return redirect('admin');
-        } else {
-            return redirect()->back()->with([
-                'status' => Lang::get('custom.admin_login.status'),
-                'email' => $login['email'],
-            ]);
-        }
+            return redirect()->route('admin.home');
+        } 
+        
+        return redirect()->back()->with([
+            'status' => Lang::get('custom.admin_login.status'),
+            'email' => $login['email'],
+        ]);
+        
     }
 
     public function getLogout(Request $request)

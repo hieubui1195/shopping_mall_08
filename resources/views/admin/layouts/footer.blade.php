@@ -1,21 +1,26 @@
 <footer class="main-footer">
     <div class="pull-right hidden-xs" style="float: right;">
-        <b>Version</b> 2.4.0
+        <b>@lang('custom.footer.version')</b>
     </div>
-    <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
-    reserved.
+    <strong>
+        @lang('custom.footer.copyright') 
+        {!! Html::link('https://adminlte.io', Lang::get('custom.footer.author')) !!}
+    </strong> 
+    @lang('custom.footer.reserved')
 </footer>
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="{{ asset('assets/jquery/dist/jquery.min.js') }}"></script>
+{!! Html::script('assets/jquery/dist/jquery.min.js') !!}
 <!-- Bootstrap -->
-<script src="{{ asset('assets/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+{!! Html::script('assets/bootstrap/dist/js/bootstrap.min.js') !!}
 <!-- Fastclick -->
-<script src="{{ asset('assets/fastclick/lib/fastclick.js') }}"></script>
+{!! Html::script('assets/fastclick/lib/fastclick.js') !!}
 <!-- AdminLTE App -->
-<script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+{!! Html::script('dist/js/adminlte.min.js') !!}
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
+{!! Html::script('dist/js/pages/dashboard.js') !!}
 <!-- AdminLTE for demo purposes -->
-<script src="{{ asset('dist/js/demo.js') }}"></script>
+{!! Html::script('dist/js/demo.js') !!}
+<!-- Main js -->
+{!! Html::script('js/main.js') !!}

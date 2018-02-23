@@ -11,7 +11,7 @@ class MyFunctions
     public static function changeLanguage()
     {
         $lang = Session::get('website_language', 'default');
-
+        
         return App::setlocale($lang);
     }
 }

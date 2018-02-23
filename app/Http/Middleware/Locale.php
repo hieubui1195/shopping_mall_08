@@ -18,6 +18,7 @@ class Locale
     public function handle($request, Closure $next)
     {
         $lang = Session::get('website_language', config('app.locale'));
+        
         $config(['app.locale' => $lang]);
         
         return $next($request);

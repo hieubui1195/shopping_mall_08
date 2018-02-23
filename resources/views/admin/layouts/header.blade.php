@@ -1,47 +1,95 @@
 <header class="main-header">
     <!-- Logo -->
-    <a href=" {{ route('admin.home') }} " class="logo">
-        <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>E-Shop</b></span>
-        <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Admin</b> E-Shop</span>
-    </a>
+    {!! html_entity_decode(
+        Html::linkRoute(
+            'admin.home', 
+            '<span class="logo-mini"><b>' . Lang::get("custom.common.logo") . 
+            '</b></span><span class="logo-lg"><b>' . Lang::get('custom.common.title') . '</b></span>', 
+            null, 
+            [
+                'class' => 'logo',
+            ]
+        )
+    ) !!}
+
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top" style="padding: 0px">
         <!-- Sidebar toggle button-->
-        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-            <i class="fa fa-bars"></i>
-            {{-- <span class="sr-only">Toggle navigation</span> --}}
-        </a>
+        {!! html_entity_decode(
+            Html::link(
+                null, 
+                '<i class="fa fa-bars"></i>', 
+                [
+                    'class' => 'sidebar-toggle', 
+                    'data-toggle' => 'push-menu', 
+                    'role' => 'button',
+                ]
+            )
+        ) !!}
 
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu" style="padding-right: 20px;">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="" class="user-image" alt="User Image" />
-                        <span class="hidden-xs">{{ Auth::user()->name }}</span>
-                    </a>
+                    {!! html_entity_decode(
+                        Html::link(
+                            null, 
+                            Html::image(
+                                'images' . $avatar, 
+                                'User Image', 
+                                [
+                                    'class' => 'user-image', 
+                                ]
+                            ) . '<span class="hidden-xs">' . Auth::user()->name . '</span>', 
+                            [
+                                'class' => 'dropdown-toggle', 
+                                'data-toggle' => 'dropdown', 
+                            ]
+                        )
+                    ) !!}
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="" class="img-circle" alt="User Image" />
+                            {!! Html::image(
+                                'images' . $avatar, 
+                                'User Image', 
+                                [
+                                    'class' => 'img-circle'
+                                ]
+                            ) !!} 
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left" style="float: left;">
-                                <a href="#" class="btn btn-default btn-flat">@lang('custom.common.profile_button')</a>
+                                {!! Html::link(
+                                    null, 
+                                    Lang::get('custom.common.profile_button'), 
+                                    [
+                                        'class' => 'btn btn-default btn-flat'
+                                    ]
+                                ) !!}                                
                             </div>
                             <div class="btn btn-default pull-right" style="float: right;">
-                                <a href="{{ route('admin.getLogout') }}"
-                                    onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();">
-                                    @lang('custom.common.logout_button')
-                                </a>
 
-                                <form id="logout-form" action="{{ route('admin.getLogout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
+                                {!! Html::linkRoute(
+                                    'admin.getLogout', 
+                                    Lang::get('custom.common.logout_button'), 
+                                    null, 
+                                    [
+                                        'onclick' => 'event.preventDefault();document.getElementById("logout-form").submit();'
+                                    ]
+                                ) !!}
+                                
+                                {!! Form::open([
+                                    'id' => 'logout-form', 
+                                    'method' => 'POST', 
+                                    'route' => 'admin.getLogout', 
+                                    'style' => 'display: none;'
+                                    ]
+                                ) !!}
+                                
+                                {!! Form::close() !!}
+                                
                             </div>
                         </li>
                     </ul>

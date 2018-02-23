@@ -1,96 +1,129 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Admin | E-Shop</title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="{{ asset('assets/bootstrap/dist/css/bootstrap.min.css')}}">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('assets/font-awesome/css/font-awesome.min.css')}}">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="{{ asset('assets/Ionicons/css/ionicons.min.css')}}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('dist/css/AdminLTE.min.css')}}">
-    <!-- iCheck -->
-    <link rel="stylesheet" href="{{ asset('assets/iCheck/skins/square/blue.css')}}">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>@lang('custom.common.title')</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <!-- Bootstrap -->
+        {!! Html::style('assets/bootstrap/dist/css/bootstrap.min.css') !!}
+        <!-- Ionicons -->
+        {!! Html::style('assets/Ionicons/css/ionicons.min.css') !!}
+        <!-- Theme style -->
+        {!! Html::style('dist/css/AdminLTE.min.css') !!}
+        <!-- iCheck -->
+        {!! Html::style('assets/iCheck/skins/square/blue.css') !!}
+        <!-- Google Font -->
+        {!! Html::style('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic') !!}
 
-    <!-- Google Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-</head>
-<body class="hold-transition login-page">
-<div class="login-box">
-    <div class="login-logo">
-        <a href="{{ route('home') }}"><b>E-Shop</b></a>
-    </div>
-    <!-- /.login-logo -->
-    <div class="login-box-body">
-        <p class="login-box-msg">
-            @lang('custom.admin_login.title')
-        </p>
-
-        @if (session('status'))
-            <ul>
-                <li class="text-danger" style="list-style-type: none;">{{ session('status') }}</li>
-            </ul>
-        @endif
-
-        <form method="POST" action="{{ route('admin.getLogin') }}">
-            {{ csrf_field() }}
-
-            <div class="form-group has-feedback{{ $errors->has('email') ? ' has-error' : '' }}">
-                <input id="email" type="email" name="email" class="form-control" value="{{ session('email') }}" required="required" autofocus="autofocus" placeholder="@lang('custom.admin_login.email_placeholder')">
+    </head>
+    <body class="hold-transition login-page">
+        <div class="login-box">
+            <div class="login-logo">
+                {!! Html::linkRoute('home', Lang::get('custom.common.title')) !!}
             </div>
+            <!-- /.login-logo -->
+            <div class="login-box-body">
+                <p class="login-box-msg">
+                    @lang('custom.admin_login.title')
+                </p>
 
-            <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
-                <input id="password" type="password" name="password" class="form-control" required="required" autofocus="autofocus" placeholder="@lang('custom.admin_login.password_placeholder')">
+                @if (session('status'))
+                    <ul>
+                        <li class="text-danger" style="list-style-type: none;">{{ session('status') }}</li>
+                    </ul>
+                @endif
+                
+                {!! Form::open([
+                    'method' => 'POST', 
+                    'route' => 'admin.getLogin'
+                ]) !!}
+
+                    <div class="form-group has-feedback{{ $errors->has('email') ? ' has-error' : '' }}">
+                        {!! Form::email(
+                            'email', 
+                            session('email'), 
+                            [
+                                'id' => 'email', 
+                                'class' => 'form-control', 
+                                'required' => 'required', 
+                                'autofocus' => 'autofocus', 
+                                'placeholder' => Lang::get('custom.admin_login.email_placeholder')
+                            ]
+                        ) !!}
+                        
+                    </div>
+
+                    <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
+                        {!! Form::password(
+                            'password', 
+                            [
+                                'id' => 'password', 
+                                'class' => 'form-control', 
+                                'required' => 'required', 
+                                'autofocus' => 'autofocus', 
+                                'placeholder' => Lang::get('custom.admin_login.password_placeholder')
+                            ]
+                        ) !!}
+                        
+                    </div>
+
+                    <div class="col-xs-12">
+                        <div class="checkbox icheck">
+                            {!! Form::checkbox('remember', old('remember') ? true : false ) !!}
+                            {!! Form::label(Lang::get('custom.admin_login.remember_me')) !!}
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12">
+                        {!! Form::submit(Lang::get('custom.admin_login.sign_in_button'), ['class' => 'btn btn-primary btn-block btn-flat']) !!}
+                    </div>
+                    
+                {!! Form::close() !!}
+                
+                {!! Html::link(null, Lang::get('custom.admin_login.forgot_password')) !!}
+
+                <br />
+                
+                {!! html_entity_decode(
+                    Html::linkRoute(
+                        'admin.change-language', 
+                        Html::image('images/en.png') . Lang::get('custom.common.en'), 
+                        [
+                            'lang' => 'en'
+                        ], 
+                        [
+                            'style' => 'color:black'
+                        ]
+                    )
+                ) !!}
+
+                {!! html_entity_decode(
+                    Html::linkRoute(
+                        'admin.change-language', 
+                        Html::image('images/vi.png') . Lang::get('custom.common.vi'), 
+                        [
+                            'lang' => 'vi'
+                        ], 
+                        [
+                            'style' => 'color:black'
+                        ]
+                    )
+                ) !!}
+
             </div>
-            <div class="col-xs-12">
-                <div class="checkbox icheck">
-                    <label>
-                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>  @lang('custom.admin_login.remember_me')
-                    </label>
-                </div>
-            </div>
-            <!-- /.col -->
-            <div class="col-xs-12">
-                <button type="submit" class="btn btn-primary btn-block btn-flat">@lang('custom.admin_login.sign_in_button')</button>
-            </div>
-            <!-- /.col -->
-        </form>
+            <!-- /.login-box-body -->
+        </div>
+        <!-- /.login-box -->
 
-        <a href="#">@lang('custom.admin_login.forgot_password')</a><br>
-        <a href="{!! route('admin.change-language', ['en']) !!}" style="color: black;">
-            <img src="{{ asset('images/en.png') }}" alt="English" />
-            English
-        </a>
-        <a href="{!! route('admin.change-language', ['vi']) !!}" style="color: black;">
-            <img src="{{ asset('images/vi.png') }}" alt="Vietnamese" />
-            Tiếng Việt
-        </a>
-    </div>
-    <!-- /.login-box-body -->
-</div>
-<!-- /.login-box -->
-
-<!-- jQuery 3 -->
-<script src="{{ asset('assets/jquery/dist/jquery.min.js')}}"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="{{ asset('assets/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-<!-- iCheck -->
-<script src="{{ asset('assets/iCheck/icheck.min.js')}}"></script>
-<script>
-    $(function () {
-
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '20%' // optional
-        });
-
-    });
-</script>
-</body>
+        <!-- jQuery -->
+        {!! Html::script('assets/jquery/dist/jquery.min.js') !!}
+        <!-- Bootstrap -->
+        {!! Html::script('assets/bootstrap/dist/js/bootstrap.min.js') !!}
+        <!-- iCheck -->
+        {!! Html::script('assets/iCheck/icheck.min.js') !!}
+        <!-- Main js -->
+        {!! Html::script('js/main.js') !!}
+    </body>
 </html>

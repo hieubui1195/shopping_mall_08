@@ -19,6 +19,13 @@ return [
         'accounts' => 'Tài khoản',
     ],
 
+    'footer' => [
+        'version' => 'Phiên bản 2.4.0',
+        'copyright' => 'Bản quyền thuộc về &copy; 2014-2016',
+        'author' => 'Almsaeed Studio. ',
+        'reserved' => 'Đã được đăng ký bản quyền.',
+    ],
+
     'homepage' => [
         'order' => 'Đơn hàng mới',
         'user' => 'Người dùng',
@@ -27,6 +34,10 @@ return [
     ],
 
     'common' => [
+        'title' => 'E-Shop | Quản trị',
+        'en' => 'English',
+        'vi' => 'Tiếng Việt',
+        'logo' => 'E-Shop',
         'profile_button' => 'Cá nhân',
         'logout_button' => 'Đăng xuất',
         'change_language' => 'Ngôn ngữ:',
