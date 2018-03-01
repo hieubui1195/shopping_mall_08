@@ -28,9 +28,6 @@ return [
 
     'header' => [
         'welcome' => 'Welcome to E-shop!',
-        'copyright' => 'Copyright &copy; 2014-2016',
-        'author' => 'Almsaeed Studio. ',
-        'reserved' => 'All rights reserved.',
     ],
 
     'homepage' => [
@@ -51,9 +48,18 @@ return [
         'dashboard' => 'Dashboard',
         'home' => 'Home',
         'create' => 'Create',
+        'edit' => 'Edit',
         'back' => 'Back',
+        'list' => 'List',
+        'categories' => 'All Categories',
         'main_category' => 'Main Category',
         'sub_category' => 'Sub Category',
+        'edit_category' => 'Edit Category',
+        'name' => 'Name',
+        'parent' => 'Parent',
+        'status' => 'Status',
+        'active' => 'Active',
+        'deleted' => 'Deleted',
         'language' => 'Language ',
         'myaccount' => 'Account ',
         'wishlist' => 'WishList',
@@ -95,11 +101,20 @@ return [
         'sortby' => 'Sort By : ',
         'price' => 'Price',
         'page' => 'Page : ',
-        '' => '',
-        '' => '',
-        '' => '',
-        '' => '',
-        '' => '',
     ],
+
+    'validation' => [
+        'category_required' => 'The category is required',
+        'category_unique' => 'The category has already been taken',
+        'category_added' => 'New category has already been added',
+        'category_edited' => 'The category has been updated',
+        'category_deleted' => 'The category has already been deleted'
+    ],
+
+    'form' => [
+        'confirm_delete' => 'Are you want to delete this item?'
+    ],
+
+    'test' => 'Eng',
     
 ];

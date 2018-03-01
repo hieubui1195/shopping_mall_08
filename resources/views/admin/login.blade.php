@@ -88,7 +88,7 @@
                 
                 {!! html_entity_decode(
                     Html::linkRoute(
-                        'admin.change-language', 
+                        'change-language', 
                         Html::image('images/en.png') . Lang::get('custom.common.en'), 
                         [
                             'lang' => 'en'
@@ -101,7 +101,7 @@
 
                 {!! html_entity_decode(
                     Html::linkRoute(
-                        'admin.change-language', 
+                        'change-language', 
                         Html::image('images/vi.png') . Lang::get('custom.common.vi'), 
                         [
                             'lang' => 'vi'
@@ -124,6 +124,6 @@
         <!-- iCheck -->
         {!! Html::script('assets/iCheck/icheck.min.js') !!}
         <!-- Main js -->
-        {!! Html::script('js/main.js') !!}
+        {!! Html::script('js/admin/main.js') !!}
     </body>
 </html>

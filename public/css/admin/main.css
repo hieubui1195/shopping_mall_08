@@ -1,0 +1,16 @@
+/*Main css*/
+.main-header .sidebar-toggle:before {
+    content: "";
+}
+
+.main-header .sidebar-toggle {
+    padding: 10px 15px;
+}
+
+/*Alert*/
+.alert-blink {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 100;
+}

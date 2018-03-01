@@ -24,5 +24,16 @@ Route::get('/ds', function () {
     return view('user.layouts.products');
 });
 
-Route::get('change-language/{language}', 'HomeController@changeLanguage')->name('change-language');
 Route::get('getImg', 'HomeController@getImg');
+
+Route::get('change-language/{language}', 'HomeController@changeLanguage')->name('change-language');
+
+Route::group(['prefix'=>'admin', 'as'=>'admin.', 'namespace' => 'Admin'],function(){
+    Route::get('login', 'AdminLoginController@getLogin')->name('getLogin');
+    Route::post('login', 'AdminLoginController@postLogin')->name('postLogin');
+    Route::post('logout', 'AdminLoginController@getLogout')->name('getLogout');
+
+    Route::get('/', 'HomeController@index')->middleware('CheckAdminLogin')->name('home');
+    
+    Route::resource('category', 'CategoryController')->middleware('CheckAdminLogin');
+});
