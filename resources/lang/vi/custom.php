@@ -28,9 +28,6 @@ return [
 
     'header' => [
         'welcome' => 'Chào mừng tới E-Shop!',
-        'copyright' => 'Bản quyền thuộc về &copy; 2014-2016',
-        'author' => 'Almsaeed Studio. ',
-        'reserved' => 'Đã được đăng ký bản quyền.',
     ],
 
     'homepage' => [
@@ -51,9 +48,18 @@ return [
         'dashboard' => 'Bảng điều khiển',
         'home' => 'Trang chủ',
         'create' => 'Thêm mới',
+        'edit' => 'Cập nhật',
         'back' => 'Trở lại',
+        'list' => 'Danh sách',
+        'categories' => 'Tất cả danh mục',
         'main_category' => 'Danh mục chính',
         'sub_category' => 'Danh mục con',
+        'edit_category' => 'Cập nhật danh mục',
+        'name' => 'Tên',
+        'parent' => 'Danh mục cha',
+        'status' => 'Trạng thái',
+        'active' => 'Đang hoạt động',
+        'deleted' => 'Đã xóa',
         'language' => 'Ngôn ngữ ',
         'myaccount' => 'Tài Khoản ',
         'wishlist' => 'DS Yêu Thích',
@@ -95,11 +101,20 @@ return [
         'sortby' => 'Sắp xếp theo : ',
         'price' => 'Giá',
         'page' => 'Trang : ',
-        '' => '',
-        '' => '',
-        '' => '',
-        '' => '',
-        '' => '',
     ],
+
+    'validation' => [
+        'category_required' => 'Tên danh mục được yêu cầu',
+        'category_unique' => 'Tên danh mục đã tồn tại',
+        'category_added' => 'Danh mục mới được thêm',
+        'category_edited' => 'Danh mục đã được cập nhật',
+        'category_deleted' => 'Danh mục đã được xóa',
+    ],
+
+    'form' => [
+        'confirm_delete' => 'Bạn có muốn xóa mục này?'
+    ],
+
+    'test' => 'Việt',
 
 ];

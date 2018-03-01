@@ -6,6 +6,20 @@ return [
         'user' => 1,
         'admin' => 2,
     ],
+
+    'image' => [
+        'avatar_default' => '/avatar/avatar.png',
+    ],
+
+    'form_type' => [
+        'create_main' => 'createMain',
+        'create_sub' => 'createSub',
+        'edit_main' => 'editMain',
+        'edit_sub' => 'editSub',
+    ],
+
+    'default_parent' => 0,
+
     'defaultZero' => 0,
     'defaultOne' => 1,
     'defaultTwo' => 2,

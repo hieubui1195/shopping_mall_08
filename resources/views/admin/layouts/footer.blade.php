@@ -12,6 +12,8 @@
 
 <!-- jQuery -->
 {!! Html::script('assets/jquery/dist/jquery.min.js') !!}
+<!-- Propper -->
+{!! Html::script('assets/popper.js/dist/umd/popper.min.js') !!}
 <!-- Bootstrap -->
 {!! Html::script('assets/bootstrap/dist/js/bootstrap.min.js') !!}
 <!-- Fastclick -->
@@ -23,4 +25,4 @@
 <!-- AdminLTE for demo purposes -->
 {!! Html::script('dist/js/demo.js') !!}
 <!-- Main js -->
-{!! Html::script('js/main.js') !!}
+{!! Html::script('js/admin/main.js') !!}

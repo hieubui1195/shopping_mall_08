@@ -20,33 +20,45 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="treeview">
 
-                {!! html_entity_decode(Html::link(null, 
-                    '<i class="fas fa-globe"></i> <span>' . 
-                    Lang::get('custom.common.change_language') . 
-                    '</span><span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i></span>')) !!}
+                {!! html_entity_decode(
+                    Html::link(
+                        null, 
+                        '<i class="fas fa-globe"></i> <span>' . 
+                        Lang::get('custom.common.change_language') . 
+                        '</span><span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i></span>'
+                    )
+                ) !!}
 
                 <ul class="treeview-menu">
                     <li>
-                        {!! html_entity_decode(Html::linkRoute('admin.change-language', 
-                        Html::image('images/en.png') . Lang::get('custom.common.en'), 
-                        [
-                            'lang' => 'en'
-                        ])) !!}
+                        {!! html_entity_decode(
+                            Html::linkRoute(
+                                'change-language', 
+                                Html::image('images/en.png') . Lang::get('custom.common.en'), 
+                                [
+                                    'lang' => 'en'
+                                ]
+                            )
+                        ) !!}
                     </li>
                     <li>
-                        {!! html_entity_decode(Html::linkRoute('admin.change-language', 
-                        Html::image('images/vi.png') . Lang::get('custom.common.vi'), 
-                        [
-                            'lang' => 'vi'
-                        ])) !!}
+                        {!! html_entity_decode(
+                            Html::linkRoute(
+                                'change-language', 
+                                Html::image('images/vi.png') . Lang::get('custom.common.vi'), 
+                                [
+                                    'lang' => 'vi'
+                                ]
+                            )
+                        ) !!}
                     </li>
                 </ul>
             </li>
             <li>
                 {!! html_entity_decode(
-                    Html::link(
-                        null, 
+                    Html::linkRoute(
+                        'admin.category.index', 
                         '<i class="fa fa-list"></i> <span>' .  Lang::get('custom.nav.categories') . '</span>'
                     )
                 ) !!}
