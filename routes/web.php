@@ -12,5 +12,17 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('user.layouts.index');
 });
+Route::get('/tt', function () {
+    return view('user.layouts.checkout');
+});
+Route::get('/ct', function () {
+    return view('user.layouts.product-details');
+});
+Route::get('/ds', function () {
+    return view('user.layouts.products');
+});
+
+Route::get('change-language/{language}', 'HomeController@changeLanguage')->name('change-language');
+Route::get('getImg', 'HomeController@getImg');
