@@ -8,7 +8,10 @@ return [
     ],
 
     'image' => [
-        'avatar_default' => '/avatar/avatar.png',
+        'avatar_default' => 'storage/images/avatar/avatar.png',
+        'product' => 'product',
+        'path_product' => 'storage/images/product',
+        'path_avatar' => 'storage/images/avatar',
     ],
 
     'form_type' => [
@@ -16,6 +19,9 @@ return [
         'create_sub' => 'createSub',
         'edit_main' => 'editMain',
         'edit_sub' => 'editSub',
+        'create' => 'create',
+        'edit' => 'edit',
+        'reuse' => 'reuse',
     ],
 
     'default_parent' => 0,

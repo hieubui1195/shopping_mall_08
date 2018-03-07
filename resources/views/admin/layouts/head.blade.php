@@ -1,14 +1,16 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <title>@lang('custom.common.title')</title>
 
-<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <!-- Bootstrap -->
-{{ Html::style('assets/bootstrap/dist/css/bootstrap.min.css') }}
+{{ Html::style('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css') }}
 <!-- Font Awesome -->
 {{ Html::style('assets/Font-Awesome/web-fonts-with-css/css/fontawesome-all.min.css') }}
 <!-- Ionicons -->
 {{ Html::style('assets/Ionicons/css/ionicons.min.css') }}
+{{ Html::style('assets/select2/dist/css/select2.min.css') }}
 <!-- Theme style -->
 {{ Html::style('dist/css/AdminLTE.min.css') }}
 <!-- AdminLTE Skins -->

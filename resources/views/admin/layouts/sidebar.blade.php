@@ -5,7 +5,7 @@
         <div class="user-panel">
             <div class="pull-left image" style="float: left;">
                 {!! Html::image(
-                    'images' . $avatar, 
+                    $avatar, 
                     'User Image', 
                     [
                         'class' => 'img-circle'
@@ -65,8 +65,8 @@
             </li>
             <li>
                 {!! html_entity_decode(
-                    Html::link(
-                        null, 
+                    Html::linkRoute(
+                        'admin.product.index', 
                         '<i class="fab fa-product-hunt"></i> <span>' . Lang::get('custom.nav.products') . '</span>'
                     )
                 ) !!}

@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     return view('user.layouts.index');
-});
+})->name('home');
 Route::get('/tt', function () {
     return view('user.layouts.checkout');
 });
@@ -28,12 +28,25 @@ Route::get('getImg', 'HomeController@getImg');
 
 Route::get('change-language/{language}', 'HomeController@changeLanguage')->name('change-language');
 
-Route::group(['prefix'=>'admin', 'as'=>'admin.', 'namespace' => 'Admin'],function(){
+Route::group(['prefix'=>'admin', 'as'=>'admin.', 'namespace' => 'Admin'], function() {
+    
     Route::get('login', 'AdminLoginController@getLogin')->name('getLogin');
     Route::post('login', 'AdminLoginController@postLogin')->name('postLogin');
     Route::post('logout', 'AdminLoginController@getLogout')->name('getLogout');
 
-    Route::get('/', 'HomeController@index')->middleware('CheckAdminLogin')->name('home');
-    
-    Route::resource('category', 'CategoryController')->middleware('CheckAdminLogin');
+    Route::group(['middleware' => 'CheckAdminLogin'], function() {
+
+        Route::get('/', 'HomeController@index')->name('home');
+        
+        Route::resource('category', 'CategoryController');
+
+        Route::resource('product', 'ProductController');
+        Route::post('reuse-product', 'ProductController@reuse')->name('product.reuse');
+
+        Route::resource('order', 'OrderController');
+        Route::post('approve-order', 'OrderController@approveOrder');
+        Route::post('reject-item', 'OrderController@rejectItem');
+
+        Route::resource('promotion', 'PromotionController');
+    });
 });

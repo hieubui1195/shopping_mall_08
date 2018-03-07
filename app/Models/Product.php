@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 use App\Models\Image;
 use App\Models\Category;
@@ -12,6 +13,8 @@ use App\Models\OrderDetail;
 
 class Product extends Model
 {
+    use SoftDeletes;
+    
     public function images()
     {
         return $this->morphMany(Image::class, 'imageable');
