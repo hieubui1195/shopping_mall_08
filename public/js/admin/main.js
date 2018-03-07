@@ -8,6 +8,11 @@ $(function () {
         increaseArea: '20%'
     });
 
+    function checkExists(sel) {
+        var status = false;
+        if ($(sel).length) status = true;
+        return status;
+    }
 
 });
 
@@ -20,17 +25,32 @@ $(document).ready(function() {
             $("#delete-form-" + categoryId).submit();
         }
     })
-
+    
     var categoriesTable = $('#categories-table').DataTable();
+
 
     $('#filter-category').change(function() {
         categoriesTable.search(this.value).draw();   
     })
 
-    $('.alert').fadeOut('slow');
-    $('.alert').fadeOut(5000);
+    $('select').select2();
+
+    var productsTable = $('#products-table').DataTable();
+
+
+    $('#filter-product').change(function() {
+        productsTable.search(this.value).draw();   
+    })
+
+    var ordersTable = $('#orders-table').DataTable();
+
+    $('#filter-order').change(function() {
+        ordersTable.search(this.value).draw();   
+    })
+
+    $('.alert-blink').fadeOut('slow');
+    $('.alert-blink').fadeOut(5000);
     setInterval(function() {
-        $('.alert').remove();
+        $('.alert-blink').remove();
     }, 5000);
 })
-

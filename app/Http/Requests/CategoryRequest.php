@@ -52,8 +52,8 @@ class CategoryRequest extends FormRequest
         MyFunctions::changeLanguage();
 
         return [
-            'name.required' => Lang::get('custom.validation.category_required'),
-            'name.unique' => Lang::get('custom.validation.category_unique'),
+            'name.required' => Lang::get('validation.required', ['attribute' => 'category']),
+            'name.unique' => Lang::get('validation.unique', ['attribute' => 'category']),
         ];
     }
 }

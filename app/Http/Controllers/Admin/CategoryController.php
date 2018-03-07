@@ -22,7 +22,11 @@ class CategoryController extends Controller
     {
         MyFunctions::changeLanguage();
 
-        $categories = Category::withTrashed()->with('getParent')->orderBy('parent_id')->orderBy('name')->get();
+        $categories = Category::withTrashed()
+                                ->with('getParent')
+                                ->orderBy('parent_id')
+                                ->orderBy('name')
+                                ->get();
 
         return view('admin.categories.index', compact('categories'));
     }
@@ -41,10 +45,9 @@ class CategoryController extends Controller
         if ($type == config('custom.form_type.create_main')) {
             return view('admin.categories.main');
         } elseif ($type == config('custom.form_type.create_sub')) {
-            $mainCategories  = Category::where(
-                'parent_id', 
-                config('custom.default_parent')
-            )->orderBy('name')->pluck('name', 'id');
+            $mainCategories  = Category::where('parent_id', config('custom.default_parent'))
+                                        ->orderBy('name')
+                                        ->pluck('name', 'id');
 
             return view('admin.categories.sub', compact('mainCategories'));
         }
@@ -62,8 +65,9 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->parent_id = $request->parentId;
         $category->save();
+
         return redirect()->route('admin.category.index')
-                            ->with('msg', Lang::get('custom.validation.category_added'));
+                            ->with('msg', Lang::get('custom.msg.category_added'));
     }
 
     /**
@@ -90,10 +94,9 @@ class CategoryController extends Controller
         if ($category->parent_id == config('custom.default_parent')) {
             return view('admin.categories.editMain', compact('category'));
         } else {
-            $mainCategories  = Category::where(
-                'parent_id', 
-                config('custom.default_parent')
-            )->orderBy('name')->pluck('name', 'id');
+            $mainCategories  = Category::where('parent_id', config('custom.default_parent'))
+                                        ->orderBy('name')
+                                        ->pluck('name', 'id');
 
             return view('admin.categories.editSub', compact('category', 'mainCategories'));
         }
@@ -112,8 +115,8 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->parent_id = $request->parentId;
         $category->save();
-        return redirect()->route('admin.category.index')
-                        ->with('msg', Lang::get('custom.validation.category_edited'));
+
+        return redirect()->route('admin.category.index')->with('msg', Lang::get('custom.msg.category_edited'));
     }
 
     /**
@@ -130,8 +133,8 @@ class CategoryController extends Controller
 
         $category->delete();
         Category::destroy($subIds);
-        return redirect()->back()
-                        ->with('msg', Lang::get('custom.validation.category_deleted'));
+        
+        return redirect()->back()->with('msg', Lang::get('custom.msg.category_deleted'));
     }
 
 }

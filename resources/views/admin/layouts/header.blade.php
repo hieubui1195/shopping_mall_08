@@ -35,7 +35,7 @@
                         Html::link(
                             null, 
                             Html::image(
-                                'images' . $avatar, 
+                                $avatar, 
                                 'User Image', 
                                 [
                                     'class' => 'user-image', 
@@ -51,7 +51,7 @@
                         <!-- User image -->
                         <li class="user-header">
                             {!! Html::image(
-                                'images' . $avatar, 
+                                $avatar, 
                                 'User Image', 
                                 [
                                     'class' => 'img-circle'

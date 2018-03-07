@@ -8,9 +8,18 @@
 }
 
 /*Alert*/
-.alert-blink {
-	position: absolute;
-	top: 0;
-	right: 0;
-	z-index: 100;
+.alert-success {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 100;
 }
+textarea {
+    height: 100px;
+}
+
+.product-image {
+    width: 70px;
+    height: 70px;
+}
+
