@@ -23,3 +23,6 @@ textarea {
     height: 70px;
 }
 
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+	background: #dd4b39;
+}

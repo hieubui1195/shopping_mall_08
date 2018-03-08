@@ -6,10 +6,24 @@ $(function () {
     $('.delete-product').click(function() {
         event.preventDefault();
         var strConfirm = $('input[name="confirm"]').val();
-        if (confirm(strConfirm)) {
-            var productId = $(this).attr('data-id');
-            $("#delete-form-" + productId).submit();
-        }
+        swal({
+            title: strConfirm,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                var productId = $(this).attr('data-id');
+                swal(
+                    'Deleted!',
+                    'The item has been deleted.',
+                    'success'
+                )
+                $("#delete-form-" + productId).submit();
+            }
+        })
     })
 
     // Check form type
@@ -36,41 +50,6 @@ $(function () {
             }
         });
     }
-
-    $("#image").change(function () {
-        if (typeof (FileReader) != "undefined") {
-            var dvPreview = $("#image-preview");
-            dvPreview.html("");
-            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
-            $($(this)[0].files).each(function () {
-                var file = $(this);
-                if (regex.test(file[0].name.toLowerCase())) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        var img = $("<img />");
-                        img.attr("src", e.target.result);
-                        img.attr("class", "col-xs-4 img img-thumbnail");
-                        dvPreview.append(img);
-                    }
-                    reader.readAsDataURL(file[0]);
-
-                    var imgHidden = $("<input />")
-                    imgHidden.val(file[0].name);
-                    imgHidden.attr("name", "imgHidden[]");
-                    imgHidden.attr("type", "file");
-                    imgHidden.attr("class", "img-hidden");
-                    imgHidden.attr("style", "display: none");
-                    dvPreview.append(imgHidden);
-                } else {
-                    alert(file[0].name + " is not a valid image file.");
-                    dvPreview.html("");
-                    return false;
-                }
-            });
-        } else {
-            alert("This browser does not support HTML5 FileReader.");
-        }
-    });
 
     // Ajax
 

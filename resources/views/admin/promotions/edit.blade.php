@@ -6,7 +6,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                @lang('custom.nav.products')
+                @lang('custom.nav.promotions')
             </h1>
             <ol class="breadcrumb">
                 <li>
@@ -19,12 +19,12 @@
                 </li>
                 <li>
                     {!! Html::linkRoute(
-                        'admin.product.index',
-                        Lang::get('custom.nav.products')
+                        'admin.promotion.index',
+                        Lang::get('custom.nav.promotions')
                     ) !!}
                 </li>
                 <li class="active">
-                    @lang('custom.common.create')
+                    @lang('custom.common.edit')
                 </li>
             </ol>
         </section>
@@ -38,47 +38,25 @@
                     @include('admin.partials.success')
                         
                     <h3 style="text-align: center;">
-                        @lang('custom.common.add_product')
+                        @lang('custom.common.add_promotion')
                     </h3>
                 </div>
                 <div class="box-body">
                     {!! Form::open(
                         [
-                            'route' => 'admin.product.store',
+                            'route' => ['admin.promotion.update', $promotion->id],
+                            'method' => 'PUT',
                             'class' => 'col-md-6 col-md-offset-3',
                             'enctype' => 'multipart/form-data',
-                            'id' => 'add-product',
                         ]
                     ) !!}
 
-                    {!! Form::hidden('formType', 'create') !!}
-
-                    <div class="form-group row">
-                        {!! Form::label(
-                            'category',
-                            Lang::get('custom.common.category'),
-                            [
-                                'class' => 'col-sm-3 col-form-label'
-                            ]
-                        ) !!}
-                        
-                        
-                        <div class="col-sm-9">
-                            {!! Form::select(
-                                'category',
-                                $categories,
-                                old('category'),
-                                [
-                                    'class' => 'form-control select2',
-                                ]
-                            ) !!}
-                        </div>
-                    </div>
+                    {!! Form::hidden('formType', 'edit') !!}
 
                     <div class="form-group row">
                         {!! Form::label(
                             'name',
-                            Lang::get('custom.common.product'),
+                            Lang::get('custom.common.promotion'),
                             [
                                 'class' => 'col-sm-3 col-form-label'
                             ]
@@ -87,10 +65,10 @@
                         <div class="col-sm-9">
                             {!! Form::text(
                                 'name',
-                                old('name'),
+                                old('name') ? old('name') : $promotion->name,
                                 [
                                     'class' => 'form-control',
-                                    'placeholder' => Lang::get('custom.common.product'),
+                                    'placeholder' => Lang::get('custom.common.promotion'),
                                     'required' => 'required',
                                 ]
                             ) !!}
@@ -106,38 +84,94 @@
 
                     <div class="form-group row">
                         {!! Form::label(
-                            'description',
-                            Lang::get('custom.common.description'),
+                            'promotionRage',
+                            Lang::get('custom.common.promotion_date'),
+                            [
+                                'class' => 'col-sm-3 col-form-label'
+                            ]
+                        ) !!}
+
+
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                {!! Form::text(
+                                    'promotionRage',
+                                    old('promotionRage') ? old('promotionRage') : $promotion->start_date,
+                                    [
+                                        'class' => 'form-control pull-right',
+                                        'placeholder' => Lang::get('custom.common.promotion_date'),
+                                        'required' => 'required',
+                                        'id' => 'promotion-range',
+                                    ]
+                                ) !!}
+                            </div>
+                            {!! Form::hidden(
+                                null,
+                                $promotion->start_date,
+                                [
+                                    'id' => 'start-date',
+                                ]
+                            ) !!}
+
+                            {!! Form::hidden(
+                                null,
+                                $promotion->end_date,
+                                [
+                                    'id' => 'end-date',
+                                ]
+                            ) !!}
+
+                            @if($errors->first('daterangepicker_start'))
+                                <p class="text-danger">
+                                    <strong>{{ $errors->first('daterangepicker_start') }}</strong>
+                                </p>
+                            @endif
+
+                            @if($errors->first('daterangepicker_end'))
+                                <p class="text-danger">
+                                    <strong>{{ $errors->first('daterangepicker_end') }}</strong>
+                                </p>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        {!! Form::label(
+                            'products',
+                            Lang::get('custom.common.select_product'),
                             [
                                 'class' => 'col-sm-3 col-form-label'
                             ]
                         ) !!}
 
                         <div class="col-sm-9">
-                            {!! Form::textarea(
-                                'description',
-                                old('description'),
+                            {!! Form::select(
+                                'products[]',
+                                $products,
+                                $promotionDetails,
                                 [
-                                    'class' => 'form-control',
-                                    'placeholder' => Lang::get('custom.common.description'),
+                                    'class' => 'form-control select2',
+                                    'multiple' => 'multiple',
+                                    'style' => 'width: 100%;',
                                     'required' => 'required',
-                                    'rows' => 5,
                                 ]
                             ) !!}
 
-                            @if($errors->first('description'))
+                            @if($errors->first('products'))
                                 <p class="text-danger">
-                                    <strong>{{ $errors->first('description') }}</strong>
+                                    <strong>{{ $errors->first('products') }}</strong>
                                 </p>
                             @endif
-
-                        </div>
+                        </div> 
                     </div>
 
                     <div class="form-group row">
                         {!! Form::label(
-                            'price',
-                            Lang::get('custom.common.price'),
+                            'percent',
+                            Lang::get('custom.common.percent'),
                             [
                                 'class' => 'col-sm-3 col-form-label'
                             ]
@@ -146,52 +180,18 @@
                         <div class="col-sm-9">
                             {!! Form::input(
                                 'number',
-                                'price',
-                                old('price') ? old('price') : 0,
+                                'percent',
+                                old('percent') ? old('percent') : $percent[0],
                                 [
                                     'class' => 'form-control',
-                                    'placeholder' => Lang::get('custom.common.price'),
+                                    'placeholder' => Lang::get('custom.common.percent'),
                                     'required' => 'required',
                                 ]
                             ) !!}
 
-                            @if($errors->first('price'))
+                            @if($errors->first('percent'))
                                 <p class="text-danger">
-                                    <strong>{{ $errors->first('price') }}</strong>
-                                </p>
-                            @endif
-
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        {!! Form::label(
-                            'amount',
-                            Lang::get('custom.common.qty'),
-                            [
-                                'class' => 'col-sm-3 col-form-label'
-                            ]
-                        ) !!}
-
-                        <div class="col-sm-9">
-                            <div class="input-group">
-                                <span class="input-group-addon" data-quantity="minus" data-field="amount"><i class="fa fa-minus"></i></span>
-                                {!! Form::input(
-                                    'number',
-                                    'amount',
-                                    old('amount') ? old('amount') : 0,
-                                    [
-                                        'class' => 'form-control',
-                                        'placeholder' => Lang::get('custom.common.qty'),
-                                        'required' => 'required',
-                                    ]
-                                ) !!}
-                                <span class="input-group-addon" data-quantity="plus" data-field="amount"><i class="fa fa-plus"></i></span>
-                            </div>
-                            
-                            @if($errors->first('amount'))
-                                <p class="text-danger">
-                                    <strong>{{ $errors->first('amount') }}</strong>
+                                    <strong>{{ $errors->first('percent') }}</strong>
                                 </p>
                             @endif
 
@@ -209,18 +209,16 @@
 
                         <div class="col-sm-9">
                             {!! Form::file(
-                                'images[]',
+                                'image',
                                 [
                                     'id' => 'image',
-                                    'required' => 'required',
                                     'accept' => 'image/*',
-                                    'multiple' => 'multiple',
                                 ]
                             ) !!}
 
-                            @if($errors->first('images.*'))
+                            @if($errors->first('image'))
                                 <p class="text-danger">
-                                    <strong>{{ $errors->first('images.*') }}</strong>
+                                    <strong>{{ $errors->first('image') }}</strong>
                                 </p>
                             @endif
 
@@ -229,22 +227,30 @@
 
                     <div class="form-group row">
                         <div class="col-sm-offset-3 col-sm-9">
-                            <div id="image-preview"></div>
+                            <div id="image-preview">
+                                {!! Html::image(
+                                    $image,
+                                    'Promotion Image',
+                                    [
+                                        'class' => 'img img-thumbnail col-xs-4',
+                                    ]
+                                ) !!}
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-sm-offset-3 col-sm-9">
                             {!! Form::submit(
-                                Lang::get('custom.common.create'),
+                                Lang::get('custom.common.edit'),
                                 [
-                                    'id' => 'btn-add-product',
+                                    'id' => 'btn-edit-promotion',
                                     'class' => 'btn btn-primary',
                                 ]
                             ) !!}
 
                             {!! Html::linkRoute(
-                                'admin.product.index',
+                                'admin.promotion.index',
                                 Lang::get('custom.common.back'),
                                 [],
                                 [
@@ -253,8 +259,6 @@
                             ) !!}
                         </div>
                     </div>
-
-                    {!! Form::hidden('imageSelected') !!}
 
                     {!! Form::close() !!}
                 </div>
@@ -269,5 +273,5 @@
 @endsection
 
 @section('script')
-    {!! Html::script('js/admin/product.js') !!}
+    {!! Html::script('js/admin/promotion.js') !!}
 @endsection
