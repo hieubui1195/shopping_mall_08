@@ -10,7 +10,10 @@ return [
     'image' => [
         'avatar_default' => 'storage/images/avatar/avatar.png',
         'product' => 'product',
+        'promotion' => 'promotion',
+        'user' => 'user',
         'path_product' => 'storage/images/product',
+        'path_promotion' => 'storage/images/promotion',
         'path_avatar' => 'storage/images/avatar',
     ],
 

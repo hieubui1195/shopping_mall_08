@@ -10,7 +10,13 @@
 {{ Html::style('assets/Font-Awesome/web-fonts-with-css/css/fontawesome-all.min.css') }}
 <!-- Ionicons -->
 {{ Html::style('assets/Ionicons/css/ionicons.min.css') }}
+<!-- Select2 -->
 {{ Html::style('assets/select2/dist/css/select2.min.css') }}
+<!-- Datatables -->
+{!! Html::style('assets/datatables.net-dt/css/jquery.dataTables.min.css') !!}
+<!-- Bootstrap Daterangepicker -->
+{!! Html::style('assets/bootstrap-daterangepicker/daterangepicker.css') !!}
+{!! Html::style('assets/sweetalert2/dist/sweetalert2.min.css') !!}
 <!-- Theme style -->
 {{ Html::style('dist/css/AdminLTE.min.css') }}
 <!-- AdminLTE Skins -->

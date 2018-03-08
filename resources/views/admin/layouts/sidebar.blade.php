@@ -73,16 +73,16 @@
             </li>
             <li>
                 {!! html_entity_decode(
-                    Html::link(
-                        null, 
+                    Html::linkRoute(
+                        'admin.promotion.index', 
                         '<i class="fa fa-plus"></i> <span>' . Lang::get('custom.nav.promotions') . '</span>'
                     )
                 ) !!}
             </li>
             <li>
                 {!! html_entity_decode(
-                    Html::link(
-                        null, 
+                    Html::linkRoute(
+                        'admin.order.index', 
                         '<i class="fa fa-file"></i> <span>' . Lang::get('custom.nav.orders') . '</span>'
                     )
                 ) !!}

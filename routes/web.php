@@ -48,5 +48,6 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'namespace' => 'Admin'], functi
         Route::post('reject-item', 'OrderController@rejectItem');
 
         Route::resource('promotion', 'PromotionController');
+        Route::post('reject-promotion-item', 'PromotionController@rejectItem');
     });
 });

@@ -1,10 +1,5 @@
 @extends('admin.layouts.app')
 
-@section('style')
-    {!! Html::style('assets/datatables.net-dt/css/jquery.dataTables.min.css') !!}
-    {!! Html::style('assets/select2/dist/css/select2.min.css') !!}
-@endsection
-
 @section('main-content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -108,7 +103,7 @@
                                 $categories,
                                 old('category') ? old('category') : $product[0]['category_id'],
                                 [
-                                    'class' => 'form-control',
+                                    'class' => 'form-control select2',
                                 ]
                             ) !!}
                         </div>
@@ -324,7 +319,5 @@
 @endsection
 
 @section('script')
-    {!! Html::script('assets/datatables.net/js/jquery.dataTables.min.js') !!}
-    {!! Html::script('assets/select2/dist/js/select2.min.js') !!}
     {!! Html::script('js/admin/product.js') !!}
 @endsection
