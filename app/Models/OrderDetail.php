@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 use App\Models\Order;
 use App\Models\Product;
 
 class OrderDetail extends Model
 {
+    use SoftDeletes;
+    
     public function order()
     {
         return $this->belongsTo(Order::class);
@@ -16,6 +19,6 @@ class OrderDetail extends Model
 
     public function product()
     {
-        return $this->hasOne(Product::class);
+        return $this->belongsTo(Product::class);
     }
 }

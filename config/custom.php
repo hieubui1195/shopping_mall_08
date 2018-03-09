@@ -27,8 +27,9 @@ return [
         'reuse' => 'reuse',
     ],
 
-    'default_parent' => 0,
+    'default_password' => '123456',
 
+    'default_parent' => 0,
     'defaultZero' => 0,
     'defaultOne' => 1,
     'defaultTwo' => 2,
@@ -40,4 +41,5 @@ return [
     'defaultEight' => 8,
     'defaultNine' => 9,
     'defaultTen' => 10,
+    'defaultPhone' => 11,
 ];

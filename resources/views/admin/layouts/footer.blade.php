@@ -15,7 +15,7 @@
 <!-- Propper -->
 {!! Html::script('assets/popper.js/dist/umd/popper.min.js') !!}
 <!-- Bootstrap -->
-{!! Html::script('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js') !!}
+{!! Html::script('assets/bootstrap-3.3.7-dist/js/bootstrap.min.js') !!}
 <!-- Fastclick -->
 {!! Html::script('assets/fastclick/lib/fastclick.js') !!}
 <!-- Select2 -->
