@@ -64,7 +64,9 @@ $(document).ready(function() {
         productsTable.search(this.value).draw();   
     })
 
-    var ordersTable = $('#orders-table').DataTable();
+    var ordersTable = $('#orders-table').DataTable({
+        'order': []
+    });
 
     $('#filter-order').change(function() {
         ordersTable.search(this.value).draw();   

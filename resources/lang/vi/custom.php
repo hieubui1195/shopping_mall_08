@@ -174,4 +174,14 @@ return [
         'confirm_delete' => 'Bạn có muốn xóa mục này?'
     ],
 
+    'mail' => [
+        'subject_success' => 'E-Shop - Đặt hàng thành công',
+        'subject_reject_item' => 'E-Shop - Sản phẩm trong đơn hàng bị hủy',
+        'subject_reject' => 'E-Shop - Đơn hàng bị hủy',
+        'thanks' => 'E-Shop cảm ơn quý khách đã đặt hàng.',
+        'noti' => 'E-Shop rẩt vui thông báo đơn hàng #:code đã đặt hàng thành công và đã được gửi đi. Sản phẩm sẽ được chuyển đến trong vòng 3-5 ngày kể từ hôm nay (:date)',
+        'reject' => 'E-Shop rất tiếc khi thông báo rằng đơn hàng #:code đã có vấn đề xảy ra. Vì vậy sản phẩm sẽ không đưọc thực hiện trong đơn hàng này. Mong bạn lượng thứ cho sai sót của chúng tôi.',
+        'reject_item' => 'E-Shop rất tiếc khi thông báo rằng sản phẩm :product thuộc đơn hàng có mã #:code đã có vấn đề xảy ra. Vì vậy sản phẩm sẽ không đưọc thực hiện trong đơn hàng này. Mong bạn lượng thứ cho sai sót của chúng tôi.',
+        'note' => 'Mọi thắc mắc vui lòng liên hệ Email: :email hoặc Số điện thoại: :phone.',
+    ],
 ];

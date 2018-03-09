@@ -7,7 +7,7 @@
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap -->
-        {!! Html::style('assets/bootstrap/dist/css/bootstrap.min.css') !!}
+        {!! Html::style('assets/bootstrap-3.3.7-dist/css/bootstrap.min.css') !!}
         <!-- Ionicons -->
         {!! Html::style('assets/Ionicons/css/ionicons.min.css') !!}
         <!-- Theme style -->
@@ -120,7 +120,7 @@
         <!-- jQuery -->
         {!! Html::script('assets/jquery/dist/jquery.min.js') !!}
         <!-- Bootstrap -->
-        {!! Html::script('assets/bootstrap/dist/js/bootstrap.min.js') !!}
+        {!! Html::script('assets/bootstrap-3.3.7-dist/js/bootstrap.min.js') !!}
         <!-- iCheck -->
         {!! Html::script('assets/iCheck/icheck.min.js') !!}
         <!-- Main js -->

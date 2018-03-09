@@ -5,7 +5,7 @@
 <title>@lang('custom.common.title')</title>
 
 <!-- Bootstrap -->
-{{ Html::style('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css') }}
+{{ Html::style('assets/bootstrap-3.3.7-dist/css/bootstrap.min.css') }}
 <!-- Font Awesome -->
 {{ Html::style('assets/Font-Awesome/web-fonts-with-css/css/fontawesome-all.min.css') }}
 <!-- Ionicons -->

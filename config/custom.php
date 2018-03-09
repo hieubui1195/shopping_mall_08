@@ -40,4 +40,5 @@ return [
     'defaultEight' => 8,
     'defaultNine' => 9,
     'defaultTen' => 10,
+    'defaultPhone' => 11,
 ];

@@ -173,5 +173,16 @@ return [
     'form' => [
         'confirm_delete' => 'Are you want to delete this item?'
     ],
+
+    'mail' => [
+        'subject_success' => 'E-Shop - Order Success',
+        'subject_reject_item' => 'E-Shop - The product in the order is canceled',
+        'subject_reject' => 'E-Shop - Order canceled',
+        'thanks' => 'E-Shop thank you for ordering.',
+        'noti' => 'E-Shop is happy to announce order #:code has been successfully placed and has been sent. Products will arrive within 3-5 days from today (:date)',
+        'reject' => 'E-Shop is sorry to announce that the order code #:code has occurred. Therefore the product will not be made in this order. Looking forward for your forgiveness.',
+        'reject_item' => 'E-Shop is sorry to announce that the product :product of the order containing the order code #:code has occurred. Therefore the product will not be made in this order. Looking forward for your forgiveness.',
+        'note' => 'For inquiries, please contact Email: :email or Phone: :phone.',
+    ],
     
 ];
