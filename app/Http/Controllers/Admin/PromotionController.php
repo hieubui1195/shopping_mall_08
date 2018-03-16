@@ -3,15 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PromotionRequest;
-use Illuminate\Support\Facades\DB;
 use App\Models\Promotion;
 use App\Models\Product;
 use App\Models\Image;
 use App\Models\PromotionDetail;
-use Carbon\Carbon;
-use MyFunctions;
 use Lang;
 
 class PromotionController extends Controller
@@ -23,12 +21,7 @@ class PromotionController extends Controller
      */
     public function index()
     {
-        MyFunctions::changeLanguage();
-
-        $promotions = Promotion::withTrashed()
-                                ->orderBy('deleted_at')
-                                ->orderBy('start_date')
-                                ->get();
+        $promotions = Promotion::allPromotions();
 
         return view('admin.promotions.index', compact('promotions'));
     }
@@ -40,9 +33,7 @@ class PromotionController extends Controller
      */
     public function create()
     {
-        MyFunctions::changeLanguage();
-
-        $products = Product::all()->pluck('name', 'id');
+        $products = Product::productNameId();
 
         return view('admin.promotions.create', compact('products'));
     }
@@ -60,29 +51,29 @@ class PromotionController extends Controller
         $start = date('Y-m-d H:i:s', strtotime($subStart));
         $end = date('Y-m-d H:i:s', strtotime($subEnd));
 
-        $promotion = new Promotion;
-        $promotion->name = $request->name;
-        $promotion->start_date = $start;
-        $promotion->end_date = $end;
-        $promotion->save();
+        Promotion::create([
+            'name' => $request->name,
+            'start_date' => $start,
+            'end_date' => $end,
+        ]);
 
-        $promotionId = DB::table('promotions')->max('id');
+        $promotionId = Promotion::promotionId($request->name);
 
         // Images table
         $filename = $request->image->move(config('custom.image.path_promotion'), $request->image->getClientOriginalName());
-        $image = new Image;
-        $image->image = $filename;
-        $image->imageable_id = $promotionId;
-        $image->imageable_type = config('custom.image.promotion');
-        $image->save();
+        Image::create([
+            'image' => $filename,
+            'imageable_id' => $promotionId,
+            'imageable_type' => config('custom.image.promotion'),
+        ]);
 
         // Promotion Details table
         foreach ($request->products as $product) {
-            $detail = new PromotionDetail;
-            $detail->promotion_id = $promotionId;
-            $detail->product_id = $product;
-            $detail->percent = $request->percent;
-            $detail->save();
+            PromotionDetail::create([
+                'promotion_id' => $promotionId,
+                'product_id' => $product,
+                'percent' => $request->percent,
+            ]);
         }
 
         return redirect()->route('admin.promotion.index')->with('msg', Lang::get('custom.msg.promotion_added'));
@@ -96,12 +87,14 @@ class PromotionController extends Controller
      */
     public function show($id)
     {
-        MyFunctions::changeLanguage();
+        try {
+            $promotion = Promotion::findOrFail($id);
+            $promotionDetails = PromotionDetail::detailWithProduct($id);
 
-        $promotion = Promotion::find($id);
-        $promotionDetails = PromotionDetail::where('promotion_id', $id)->with('product')->get();
-
-        return view('admin.promotions.show', compact('promotion', 'promotionDetails'));
+            return view('admin.promotions.show', compact('promotion', 'promotionDetails'));
+        } catch (ModelNotFoundException $e) {
+            return view('admin.partials.404');
+        }
     }
 
     /**
@@ -112,15 +105,17 @@ class PromotionController extends Controller
      */
     public function edit($id)
     {
-        MyFunctions::changeLanguage();
+        try {
+            $promotion = Promotion::findOrFail($id);
+            $products = Product::productNameId();
+            $promotionDetails = Promotion::detailProduct($id)->pluck('product_id');
+            $percent = Promotion::detailProduct($id)->pluck('percent');
+            $image = Promotion::promotionImage($id);
 
-        $promotion = Promotion::find($id);
-        $products = Product::all()->pluck('name', 'id');
-        $promotionDetails = Promotion::find($id)->promotionDetails->pluck('product_id');
-        $percent = Promotion::find($id)->promotionDetails->pluck('percent');
-        $image = Promotion::find($id)->image->image;
-
-        return view('admin.promotions.edit', compact('promotion', 'products', 'promotionDetails', 'percent', 'image'));
+            return view('admin.promotions.edit', compact('promotion', 'products', 'promotionDetails', 'percent', 'image'));
+        } catch (ModelNotFoundException $e) {
+            return view('admin.partials.404');
+        }
     }
 
     /**
@@ -138,33 +133,30 @@ class PromotionController extends Controller
         $start = date('Y-m-d H:i:s', strtotime($subStart)); 
         $end = date('Y-m-d H:i:s', strtotime($subEnd));
 
-        $promotion = Promotion::find($id);
-        $promotion->name = $request->name;
-        $promotion->start_date = $start;
-        $promotion->end_date = $end;
-        $promotion->save();
+        Promotion::find($id)->update([
+            'name' => $request->name,
+            'start_date' => $start,
+            'end_date' => $end,
+        ]);
 
         // Images table
         if ($request->image != null) {
             $filename = $request->image->move(config('custom.image.path_promotion'), $request->image->getClientOriginalName());
-            $image = Image::where('imageable_id', $id)
-                            ->where('imageable_type', config('custom.image.promotion'))
-                            ->get();
-            $image->image = $filename;
-            $image->imageable_id = $id;
-            $image->imageable_type = config('custom.image.promotion');
-            $image->save();
+            Image::imageFirst($id, config('custom.image.promotion'))->update([
+                'image' => $filename,
+                'imageable_id' => $id,
+                'imageable_type' => config('custom.image.promotion'),
+            ]);
         }
 
         // Promotion Details table
-        $oldDetails = PromotionDetail::where('promotion_id', $id)
-                                        ->delete();
+        PromotionDetail::delDetail($id);
         foreach ($request->products as $product) {
-            $detail = new PromotionDetail;
-            $detail->promotion_id = $id;
-            $detail->product_id = $product;
-            $detail->percent = $request->percent;
-            $detail->save();
+            PromotionDetail::create([
+                'promotion_id' => $id,
+                'product_id' => $product,
+                'percent' => $request->percent,
+            ]);
         }
 
         return redirect()->route('admin.promotion.index')->with('msg', Lang::get('custom.msg.promotion_edited'));
@@ -178,17 +170,14 @@ class PromotionController extends Controller
      */
     public function destroy($id)
     {
-        $promotion = Promotion::find($id);
-        $promotion->delete();
+        Promotion::destroy($id);
 
         return redirect()->back()->with('msg', Lang::get('custom.msg.promotion_deleted'));
     }
 
     public function rejectItem(Request $request)
     {
-        $promotionDetailId = $request->promotionDetailId;
-        $promotionDetail = PromotionDetail::find($promotionDetailId);
-        $promotionDetail->delete();
+        PromotionDetail::destroy($request->promotionDetailId);
 
         return response()->json(['msg' => Lang::get('custom.msg.promotion_item_rejected')]);
     }

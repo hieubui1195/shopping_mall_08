@@ -8,17 +8,13 @@ use Illuminate\Support\Facades\Lang;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Admin\HomeController;
-
 use Auth;
-use MyFunctions;
 
 class AdminLoginController extends Controller
 {
 
     public function getLogin()
     {
-        MyFunctions::changeLanguage();
-
         if (Auth::check()) {
             return redirect()->route('admin.home');
         }
@@ -28,8 +24,6 @@ class AdminLoginController extends Controller
 
     public function postLogin(LoginRequest $request)
     {
-        MyFunctions::changeLanguage();
-        
         $login = [
             'email' => $request->email,
             'password' => $request->password,

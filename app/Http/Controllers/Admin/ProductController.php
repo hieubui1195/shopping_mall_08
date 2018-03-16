@@ -9,9 +9,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Image;
 use App\Models\Review;
-
 use Lang;
-use MyFunctions;
 
 class ProductController extends Controller
 {
@@ -22,14 +20,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        MyFunctions::changeLanguage();
-
-        $products = Product::withTrashed()
-                            ->with('images')
-                            ->with('category')
-                            ->orderBy('deleted_at')
-                            ->orderBy('name')
-                            ->get();
+        $products = Product::allProductsWithImagesCategory();
 
         return view('admin.products.index', compact('products'));
     }
@@ -41,11 +32,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        MyFunctions::changeLanguage();
-
-        $categories  = Category::where(
-            'parent_id', '!=', config('custom.default_parent')
-        )->orderBy('name')->pluck('name', 'id');
+        $categories  = Category::subCategories();
 
         return view('admin.products.create', compact('categories'));
     }
@@ -58,22 +45,22 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        $product = new Product;
-        $product->category_id = $request->category;
-        $product->name = $request->name;
-        $product->description = $request->description;
-        $product->price = $request->price;
-        $product->amount = $request->amount;
-        $product->save();
+        Product::create([
+            'category_id' => $request->category,
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'amount' => $request->amount,
+        ]);
         
-        $productId = Product::where('name', $request->name)->get();
+        $productId = Product::productId($request->name);
         foreach ($request->images as $image) {
             $filename = $image->move(config('custom.image.path_product'), $image->getClientOriginalName());
-            $image = new Image;
-            $image->image = $filename;
-            $image->imageable_id = $productId[0]['id'];
-            $image->imageable_type = config('custom.image.product');
-            $image->save();
+            Image::create([
+                'image' => $filename,
+                'imageable_id' => $productId,
+                'imageable_type' => config('custom.image.product'),
+            ]);
         }
 
         return redirect()->route('admin.product.index')->with('msg', Lang::get('custom.msg.product_added'));
@@ -87,12 +74,10 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        MyFunctions::changeLanguage();
-
         $product = Product::find($id);
-        $images = Product::where('id', $id)->with('images')->get();
+        $images = Product::productImages($id);
         $arrImg = [];
-        for ($i=0; $i < count($images[0]['images']); $i++) { 
+        for ($i = 0; $i < count($images[0]['images']); $i++) { 
             $images[0]['images'][$i]['image'];
             array_push($arrImg, $images[0]['images'][$i]['image']);
         } 
@@ -102,7 +87,7 @@ class ProductController extends Controller
             $promotion = Product::find($id)->promotionDetail;
         }
 
-        $reviews = Review::where('product_id', $id)->with('user')->orderBy('created_at')->get();
+        $reviews = Review::reviewProduct($id);
         $countVote = count($reviews);
         $totalVote = 0;
         $avgVote = 0;
@@ -125,15 +110,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        MyFunctions::changeLanguage();
-
         $product = Product::withTrashed()
-                            ->where('id', $id)
-                            ->with('images')
-                            ->get();
-        $categories  = Category::where('parent_id', '!=', config('custom.default_parent'))
-                                ->orderBy('name')
-                                ->pluck('name', 'id');
+                            ->productImages($id);
+        $categories = Category::subCategories();
 
         return view('admin.products.edit', compact('product', 'categories'));
     }
@@ -147,26 +126,24 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, $id)
     {
-        $product = Product::find($id);
-        $product->category_id = $request->category;
-        $product->name = $request->name;
-        $product->description = $request->description;
-        $product->price = $request->price;
-        $product->amount = $request->amount;
-        $product->save();
+        Product::find($id)->update([
+            'category_id' => $request->category,
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'amount' => $request->amount,
+        ]);
 
         if ($request->images != null) {
-            $imgInits = Image::where('imageable_id', $id)
-                                ->where('imageable_type', config('custom.image.product'))
-                                ->delete();
+            $imgInits = Image::delImagesProduct($id);
 
             foreach ($request->images as $image) {
                 $filename = $image->move(config('custom.image.path_product'), $image->getClientOriginalName());
-                $image = new Image;
-                $image->image = $filename;
-                $image->imageable_id = $id;
-                $image->imageable_type = config('custom.image.product');
-                $image->save();
+                Image::create([
+                    'image' => $filename,
+                    'imageable_id' => $id,
+                    'imageable_type' => config('custom.image.product'),
+                ]);
             }
         }
 
@@ -181,17 +158,16 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::find($id);
-        $product->delete();
+        Promotion::destroy($id);
 
         return redirect()->back()->with('msg', Lang::get('custom.msg.product_deleted'));
     }
 
     public function reuse(Request $request)
     {
-        $product = Product::withTrashed()->where('name', $request->name)->restore();
+        Product::productRestore($request->name);
 
-        return response()->json(['statusReuse' => 1, 'msg' => Lang::get('custom.msg.reuse_success')]);
+        return response()->json(['statusReuse' => config('custom.defaultOne'), 'msg' => Lang::get('custom.msg.reuse_success')]);
     }
     
 }

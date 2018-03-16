@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
-
-use MyFunctions;
 use Lang;
 
 class CategoryController extends Controller
@@ -20,13 +19,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        MyFunctions::changeLanguage();
-
-        $categories = Category::withTrashed()
-                                ->with('getParent')
-                                ->orderBy('parent_id')
-                                ->orderBy('name')
-                                ->get();
+        $categories = Category::allCategories();
 
         return view('admin.categories.index', compact('categories'));
     }
@@ -38,16 +31,12 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        MyFunctions::changeLanguage();
-
         $type = Input::get('type');
 
         if ($type == config('custom.form_type.create_main')) {
             return view('admin.categories.main');
         } elseif ($type == config('custom.form_type.create_sub')) {
-            $mainCategories  = Category::where('parent_id', config('custom.default_parent'))
-                                        ->orderBy('name')
-                                        ->pluck('name', 'id');
+            $mainCategories  = Category::mainCategories();
 
             return view('admin.categories.sub', compact('mainCategories'));
         }
@@ -61,13 +50,13 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        $category = new Category;
-        $category->name = $request->name;
-        $category->parent_id = $request->parentId;
-        $category->save();
+        Category::create([
+            'name' => $request->name,
+            'parent_id' => $request->parentId,
+        ]);
 
         return redirect()->route('admin.category.index')
-                            ->with('msg', Lang::get('custom.msg.category_added'));
+                        ->with('msg', Lang::get('custom.msg.category_added'));
     }
 
     /**
@@ -89,16 +78,18 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::find($id);
-        
-        if ($category->parent_id == config('custom.default_parent')) {
-            return view('admin.categories.editMain', compact('category'));
-        } else {
-            $mainCategories  = Category::where('parent_id', config('custom.default_parent'))
-                                        ->orderBy('name')
-                                        ->pluck('name', 'id');
+        try {
+            $category = Category::findOrFail($id);
+            
+            if ($category->parent_id == config('custom.default_parent')) {
+                return view('admin.categories.editMain', compact('category'));
+            } else {
+                $mainCategories  = Category::mainCategories();
 
-            return view('admin.categories.editSub', compact('category', 'mainCategories'));
+                return view('admin.categories.editSub', compact('category', 'mainCategories'));
+            }
+        } catch (ModelNotFoundException $e) {
+            return view('admin.partials.404');
         }
     }
 
@@ -111,12 +102,13 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, $id)
     {
-        $category = Category::find($id);
-        $category->name = $request->name;
-        $category->parent_id = $request->parentId;
-        $category->save();
+        Category::find($id)->update([
+            'name' => $request->name,
+            'parent_id' => $request->parentId,
+        ]);
 
-        return redirect()->route('admin.category.index')->with('msg', Lang::get('custom.msg.category_edited'));
+        return redirect()->route('admin.category.index')
+                        ->with('msg', Lang::get('custom.msg.category_edited'));
     }
 
     /**
@@ -127,11 +119,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::find($id);
-        $subs = Category::find($id)->sub;
-        $subIds = $subs->pluck('id');
-
-        $category->delete();
+        $subIds = Category::subIds($id);
+        Category::destroy($id);
         Category::destroy($subIds);
         
         return redirect()->back()->with('msg', Lang::get('custom.msg.category_deleted'));
