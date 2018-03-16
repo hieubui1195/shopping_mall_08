@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Auth;
-use MyFunctions;
 use Lang;
 
 class ProductRequest extends FormRequest
@@ -44,7 +43,6 @@ class ProductRequest extends FormRequest
                 }
 
                 return $rules;
-                break;
 
             case config('custom.form_type.edit'):
                 $rules = [
@@ -60,14 +58,11 @@ class ProductRequest extends FormRequest
                 }
 
                 return $rules;
-                break;
         }
     }
 
     public function messages()
     {
-        MyFunctions::changeLanguage();
-
         return [
             'name.required' => Lang::get('validation.required', ['attribute' => 'product']),
             'name.unique' => Lang::get('validation.unique', ['attribute' => 'product']),

@@ -18,4 +18,9 @@ class Review extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function scopeReviewProduct($query, $productId)
+    {
+        return $query->where('product_id', $productId)->with('user')->orderBy('created_at')->get();
+    }
 }

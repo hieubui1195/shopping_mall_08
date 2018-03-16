@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Auth;
-use MyFunctions;
 use Lang;
 
 class PromotionRequest extends FormRequest
@@ -31,7 +30,7 @@ class PromotionRequest extends FormRequest
         switch ($formType) {
             case config('custom.form_type.create'):
                 $rules = [
-                    'name' => 'required',
+                    'name' => 'required|unique:promotions',
                     'promotionRage' => 'required',
                     'products' => 'required',
                     'percent' => 'required|numeric|min:1|max:100',
@@ -39,7 +38,6 @@ class PromotionRequest extends FormRequest
                 ];
 
                 return $rules;
-                break;
 
             case config('custom.form_type.edit'):
                 $rules = [
@@ -51,16 +49,14 @@ class PromotionRequest extends FormRequest
                 ];
 
                 return $rules;
-                break;
         }
     }
 
     public function messages()
     {
-        MyFunctions::changeLanguage();
-
         return [
-            'name.required' => Lang::get('validation.required', ['attribute' => 'product']),
+            'name.required' => Lang::get('validation.required', ['attribute' => 'promotion']),
+            'name.unique' => Lang::get('validation.unique', ['attribute' => 'promotion']),
             'promotionRage.required' => Lang::get('validation.required', ['attribute' => 'promotion date']),
             'products.required' => Lang::get('validation.required'),
             'percent.required' => Lang::get('validation.required'),

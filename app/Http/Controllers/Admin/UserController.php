@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Config;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Models\Image;
@@ -68,9 +68,15 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::userWithImage($id);
+        try {
+            User::findOrFail($id);
+            $user = User::userWithImage($id);
 
-        return view('admin.users.show', compact('user'));
+            return view('admin.users.show', compact('user'));
+            
+        } catch (ModelNotFoundException $e) {
+            return view('admin.partials.404');
+        }
     }
 
     /**

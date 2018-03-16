@@ -3,9 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
 use Auth;
-use MyFunctions;
 use Lang;
 
 class CategoryRequest extends FormRequest
@@ -35,22 +33,18 @@ class CategoryRequest extends FormRequest
                 return [
                     'name' => 'required|unique:categories',
                 ];
-                break;
 
             case config('custom.form_type.edit_main'):
             case config('custom.form_type.edit_sub'):
                 return [
                     'name' => 'required',
                 ];
-                break;
         }
         
     }
 
     public function messages()
     {
-        MyFunctions::changeLanguage();
-
         return [
             'name.required' => Lang::get('validation.required', ['attribute' => 'category']),
             'name.unique' => Lang::get('validation.unique', ['attribute' => 'category']),
