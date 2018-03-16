@@ -204,7 +204,6 @@
                                 <th>
                                     @lang('custom.common.total_price')
                                 </th>
-                                <th></th>
                             </thead>
                             <tbody>
                                 @foreach ($orderDetails as $item)
@@ -226,29 +225,6 @@
                                         </td>
                                         <td>
                                             {{ ceil(($item['product']['price'] * $item->amount) * (100 - $promotions[$loop->index]) / 100) }} @lang('custom.common.currency')
-                                        </td>
-                                        <td>
-                                            {!! Form::open([
-                                                'route' => ['admin.order.destroy', $order->id],
-                                                'method' => 'DELETE',
-                                                'id' => 'delete-form-' . $order->id,
-                                                'style' => 'display: none;',
-                                            ]) !!}
-
-                                            {!! Form::close() !!}
-
-                                            {!! html_entity_decode(
-                                                Html::link(
-                                                    null,
-                                                    '<i class="fa fa-times"></i>',
-                                                    [
-                                                        'class' => 'btn btn-danger reject-order-item',
-                                                        'data-id' => $orderDetails[$loop->index]['id'],
-                                                        'title' => Lang::get('custom.common.reject'),
-                                                        ($order->state == (1 || 2) ? 'disabled="disabled"' : '')
-                                                    ]
-                                                )
-                                            ) !!}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -277,4 +253,4 @@
 
 @section('script')
     {!! Html::script('js/admin/order.js') !!}
- @endsection
+@endsection

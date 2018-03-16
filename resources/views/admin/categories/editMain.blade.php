@@ -49,7 +49,7 @@
                                 $category->id
                             ],
                             'method' => 'PUT',
-                            'class' => 'col-md-6 offset-md-3',
+                            'class' => 'col-md-6 col-md-offset-3',
                         ]
                     ) !!}
 
@@ -89,7 +89,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <div class="offset-sm-3 col-sm-9">
+                        <div class="col-sm-offset-3 col-sm-9">
                             {!! Form::submit(
                                 Lang::get('custom.common.edit'),
                                 [

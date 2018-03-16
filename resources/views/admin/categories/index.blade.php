@@ -1,8 +1,5 @@
 @extends('admin.layouts.app')
 
-@section('style')
-    {!! Html::style('assets/datatables.net-dt/css/jquery.dataTables.min.css') !!}
-@endsection
 @section('main-content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -71,28 +68,33 @@
                                 ]
                             )
                         ) !!}
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            {!! Html::linkRoute(
-                                'admin.category.create',
-                                Lang::get('custom.common.main_category'),
-                                [
-                                    'type' => config('custom.form_type.create_main'),
-                                ],
-                                [
-                                    'class' => 'dropdown-item',
-                                ]
-                            ) !!}
+                        <div class="dropdown-menu">
+                            <li>
+                                {!! Html::linkRoute(
+                                    'admin.category.create',
+                                    Lang::get('custom.common.main_category'),
+                                    [
+                                        'type' => config('custom.form_type.create_main'),
+                                    ],
+                                    [
+                                        'class' => 'dropdown-item',
+                                    ]
+                                ) !!}
+                            </li>
 
-                            {!! Html::linkRoute(
-                                'admin.category.create',
-                                Lang::get('custom.common.sub_category'),
-                                [
-                                    'type' => config('custom.form_type.create_sub'),
-                                ],
-                                [
-                                    'class' => 'dropdown-item',
-                                ]
-                            ) !!}
+                            <li>
+                                {!! Html::linkRoute(
+                                    'admin.category.create',
+                                    Lang::get('custom.common.sub_category'),
+                                    [
+                                        'type' => config('custom.form_type.create_sub'),
+                                    ],
+                                    [
+                                        'class' => 'dropdown-item',
+                                    ]
+                                ) !!}
+                            </li>
+
                         </div>
                     </div>
                     @include('admin.partials.success')
@@ -126,9 +128,13 @@
                                     </td>
                                     <td>
                                         @if ($category->deleted_at != null)
-                                            @lang('custom.common.deleted')
+                                            <p class="label bg-red">
+                                                @lang('custom.common.deleted')
+                                            </p>
                                         @else
-                                            @lang('custom.common.active')
+                                            <p class="label bg-green">
+                                                @lang('custom.common.active')
+                                            </p>
                                         @endif
                                     </td>
                                     <td>
@@ -140,7 +146,7 @@
                                                     'id' => $category->id
                                                 ],
                                                 [
-                                                    'class' => 'btn btn-info'
+                                                    'class' => 'btn btn-info ' . ($category->deleted_at != null ? 'disabled' : '')
                                                 ]
                                             )
                                         ) !!}
@@ -159,7 +165,7 @@
                                                 null,
                                                 '<i class="fa fa-trash"></i>',
                                                 [
-                                                    'class' => 'btn btn-danger delete-category',
+                                                    'class' => 'btn btn-danger delete-category ' . ($category->deleted_at != null ? 'disabled' : ''),
                                                     'data-id' => $category->id,
                                                 ]
                                             )
@@ -178,7 +184,6 @@
                             </tr>
                         </tfoot>
                     </table>
-                    <div id="msg"></div>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -189,7 +194,3 @@
     </div>
     <!-- /.content-wrapper -->
 @endsection
-
-@section('script')
-    {!! Html::script('assets/datatables.net/js/jquery.dataTables.min.js') !!}
- @endsection
