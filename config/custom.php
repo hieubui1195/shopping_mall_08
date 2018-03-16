@@ -27,8 +27,9 @@ return [
         'reuse' => 'reuse',
     ],
 
-    'default_parent' => 0,
+    'default_password' => '123456',
 
+    'default_parent' => 0,
     'defaultZero' => 0,
     'defaultOne' => 1,
     'defaultTwo' => 2,

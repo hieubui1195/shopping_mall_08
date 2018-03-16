@@ -35,13 +35,6 @@ $(document).ready(function() {
         })
     })
     
-    var categoriesTable = $('#categories-table').DataTable();
-
-
-    $('#filter-category').change(function() {
-        categoriesTable.search(this.value).draw();   
-    })
-
     $('.select2').select2();
 
     $('#promotion-range').daterangepicker({ 
@@ -57,8 +50,13 @@ $(document).ready(function() {
         }
     });
 
-    var productsTable = $('#products-table').DataTable();
+    var categoriesTable = $('#categories-table').DataTable();
 
+    $('#filter-category').change(function() {
+        categoriesTable.search(this.value).draw();   
+    })
+
+    var productsTable = $('#products-table').DataTable();
 
     $('#filter-product').change(function() {
         productsTable.search(this.value).draw();   
@@ -78,6 +76,14 @@ $(document).ready(function() {
 
     $('#filter-promotion').change(function() {
         promotionsTable.search(this.value).draw();   
+    })
+
+    var userTable = $('#users-table').DataTable({
+        'order': []
+    });
+
+    $('#filter-user').change(function() {
+        userTable.search(this.value).draw();   
     })
 
     $('.alert-blink').fadeOut('slow');

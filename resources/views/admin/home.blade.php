@@ -25,51 +25,72 @@
                         <div class="col-lg-4 col-xs-6">
                             <!-- small box -->
                             <div class="small-box bg-aqua">
-                            <div class="inner">
-                                <h3>150</h3>
+                                <div class="inner">
+                                    <h3>{{ $countOrder }}</h3>
 
-                                <p>@lang('custom.homepage.order')</p>
-                            </div>
-                            <div class="icon">
-                                <i class="fa fa-shopping-cart"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">
-                                @lang('custom.homepage.more_info') <i class="fa fa-arrow-circle-right"></i>
-                            </a>
+                                    <p>@lang('custom.homepage.order')</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fa fa-shopping-cart"></i>
+                                </div>
+                                {!! html_entity_decode(
+                                    Html::linkRoute(
+                                        'admin.order.index',
+                                        Lang::get('custom.homepage.more_info') . '<i class="fa fa-arrow-circle-right"></i>',
+                                        null,
+                                        [
+                                            'class' => 'small-box-footer',
+                                        ]
+                                    )
+                                ) !!}
                             </div>
                         </div>
                         <!-- ./col -->
                         <div class="col-lg-4 col-xs-6">
                             <!-- small box -->
                             <div class="small-box bg-yellow">
-                            <div class="inner">
-                                <h3>44</h3>
+                                <div class="inner">
+                                    <h3>{{ $countUser }}</h3>
 
-                                <p>@lang('custom.homepage.user')</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-person-add"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">
-                                @lang('custom.homepage.more_info') <i class="fa fa-arrow-circle-right"></i>
-                            </a>
+                                    <p>@lang('custom.homepage.user')</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-person-add"></i>
+                                </div>
+                                {!! html_entity_decode(
+                                    Html::linkRoute(
+                                        'admin.user.index',
+                                        Lang::get('custom.homepage.more_info') . '<i class="fa fa-arrow-circle-right"></i>',
+                                        null,
+                                        [
+                                            'class' => 'small-box-footer',
+                                        ]
+                                    )
+                                ) !!}
                             </div>
                         </div>
                         <!-- ./col -->
                         <div class="col-lg-4 col-xs-6">
                             <!-- small box -->
                             <div class="small-box bg-red">
-                            <div class="inner">
-                                <h3>65</h3>
+                                <div class="inner">
+                                    <h3>{{ $countSale }}</h3>
 
-                                <p>@lang('custom.homepage.sale')</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-pie-graph"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">
-                                @lang('custom.homepage.more_info') <i class="fa fa-arrow-circle-right"></i>
-                            </a>
+                                    <p>@lang('custom.homepage.sale')</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-pie-graph"></i>
+                                </div>
+                                {!! html_entity_decode(
+                                    Html::linkRoute(
+                                        'admin.product.index',
+                                        Lang::get('custom.homepage.more_info') . '<i class="fa fa-arrow-circle-right"></i>',
+                                        null,
+                                        [
+                                            'class' => 'small-box-footer',
+                                        ]
+                                    )
+                                ) !!}
                             </div>
                         </div>
                         <!-- ./col -->

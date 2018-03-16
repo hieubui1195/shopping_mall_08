@@ -26,28 +26,34 @@ Route::get('/ds', function () {
 
 Route::get('getImg', 'HomeController@getImg');
 
-Route::get('change-language/{language}', 'HomeController@changeLanguage')->name('change-language');
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('change-language/{language}', 'HomeController@changeLanguage')->name('change-language');
 
-Route::group(['prefix'=>'admin', 'as'=>'admin.', 'namespace' => 'Admin'], function() {
-    
-    Route::get('login', 'AdminLoginController@getLogin')->name('getLogin');
-    Route::post('login', 'AdminLoginController@postLogin')->name('postLogin');
-    Route::post('logout', 'AdminLoginController@getLogout')->name('getLogout');
-
-    Route::group(['middleware' => 'CheckAdminLogin'], function() {
-
-        Route::get('/', 'HomeController@index')->name('home');
+    Route::group(['prefix'=>'admin', 'as'=>'admin.', 'namespace' => 'Admin'], function() {
         
-        Route::resource('category', 'CategoryController');
+        Route::get('login', 'AdminLoginController@getLogin')->name('getLogin');
+        Route::post('login', 'AdminLoginController@postLogin')->name('postLogin');
+        Route::post('logout', 'AdminLoginController@getLogout')->name('getLogout');
 
-        Route::resource('product', 'ProductController');
-        Route::post('reuse-product', 'ProductController@reuse')->name('product.reuse');
+        Route::group(['middleware' => 'CheckAdminLogin'], function() {
 
-        Route::resource('order', 'OrderController');
-        Route::post('approve-order', 'OrderController@approveOrder');
-        Route::post('reject-item', 'OrderController@rejectItem');
+            Route::get('/', 'HomeController@index')->name('home');
+            
+            Route::resource('category', 'CategoryController');
 
-        Route::resource('promotion', 'PromotionController');
-        Route::post('reject-promotion-item', 'PromotionController@rejectItem');
+            Route::resource('product', 'ProductController');
+            Route::post('reuse-product', 'ProductController@reuse')->name('product.reuse');
+
+            Route::resource('order', 'OrderController');
+            Route::post('approve-order', 'OrderController@approveOrder');
+            Route::post('reject-item', 'OrderController@rejectItem');
+
+            Route::resource('promotion', 'PromotionController');
+            Route::post('reject-promotion-item', 'PromotionController@rejectItem');
+
+            Route::resource('user', 'UserController');
+
+        });
     });
 });
+
