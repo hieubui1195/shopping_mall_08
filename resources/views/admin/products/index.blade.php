@@ -79,6 +79,8 @@
                                 <th>@lang('custom.common.image')</th>
                                 <th>@lang('custom.common.name')</th>
                                 <th>@lang('custom.common.category')</th>
+                                <th>@lang('custom.common.qty')</th>
+                                <th>@lang('custom.common.price') @lang('custom.common.currency')</th>
                                 <th>@lang('custom.common.status')</th>
                                 <th></th>
                             </tr>
@@ -120,14 +122,26 @@
                                         {{ $products[$loop->index]['category']['name'] }}
                                     </td>
                                     <td>
-                                        @if ($product->deleted_at != null)
-                                            <p class="label bg-red">
-                                                @lang('custom.common.deleted')
+                                        {{ $product->amount }}
+                                    </td>
+                                    <td>
+                                        {{ $product->price }}
+                                    </td>
+                                    <td>
+                                        @if ($product->amount == 0)
+                                            <p class="label bg-warning">
+                                                @lang('custom.common.sold_out')
                                             </p>
                                         @else
-                                        <p class="label bg-green">
-                                            @lang('custom.common.active')
-                                        </p>
+                                            @if ($product->deleted_at != null)
+                                                <p class="label bg-red">
+                                                    @lang('custom.common.deleted')
+                                                </p>
+                                            @else
+                                            <p class="label bg-green">
+                                                @lang('custom.common.active')
+                                            </p>
+                                            @endif
                                         @endif
                                     </td>
                                     <td>
@@ -173,6 +187,8 @@
                                 <th>@lang('custom.common.image')</th>
                                 <th>@lang('custom.common.name')</th>
                                 <th>@lang('custom.common.category')</th>
+                                <th>@lang('custom.common.qty')</th>
+                                <th>@lang('custom.common.price') @lang('custom.common.currency')</th>
                                 <th>@lang('custom.common.status')</th>
                                 <th></th>
                             </tr>
@@ -191,4 +207,4 @@
 
 @section('script')
     {!! Html::script('js/admin/product.js') !!}
- @endsection
+@endsection

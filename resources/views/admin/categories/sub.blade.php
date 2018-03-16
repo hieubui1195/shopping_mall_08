@@ -45,7 +45,7 @@
                     {!! Form::open(
                         [
                             'route' => 'admin.category.store',
-                            'class' => 'col-md-6 offset-md-3',
+                            'class' => 'col-md-6 col-md-offset-3',
                         ]
                     ) !!}
 
@@ -67,7 +67,8 @@
                                 $mainCategories,
                                 null,
                                 [
-                                    'class' => 'form-control',
+                                    'class' => 'form-control select2',
+                                    'style' => 'with: 100%',
                                 ]
                             ) !!}
                         </div>
@@ -102,7 +103,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <div class="offset-sm-3 col-sm-9">
+                        <div class="col-sm-offset-3 col-sm-9">
                             {!! Form::submit(
                                 Lang::get('custom.common.create'),
                                 [

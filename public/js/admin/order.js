@@ -27,8 +27,17 @@ $(function () {
             dataType: 'JSON',
             data: { orderId: orderId },
             success: function (data) {
-                $('#orders-table').find("[data-id='" + orderId + "']").addClass('disabled');
-                swal(data.msg);
+                swal({
+                    text: data.msg,
+                    type: 'success',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                })
             }
         })
     })
@@ -42,9 +51,17 @@ $(function () {
             dataType: 'JSON',
             data: { orderId: orderId },
             success: function (data) {
-                $('#order-detail').load(location.href + ' #order-detail');
-                $('.box').find('.btn-success, .btn-danger').addClass('disabled');
-                swal(data.msg);
+                swal({
+                    text: data.msg,
+                    type: 'success',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                }).then((result) => {
+                    if (result.value) {
+                        location.href = '/admin/order';
+                    }
+                })
             }
         })
     })
@@ -58,7 +75,6 @@ $(function () {
             dataType: 'JSON',
             data: { orderDetailId: orderDetailId },
             success: function (data) {
-                console.log(data);
                 $('#order-items').load(location.href + ' #order-items');
                 swal(data.msg);
             }
@@ -74,9 +90,17 @@ $(function () {
             dataType: 'JSON',
             data: { orderId: orderId },
             success: function (data) {
-                $('.reject').filter('[data-id="' + orderId + '"]').addClass('disabled');
-                $('.info').filter('[data-id="' + orderId + '"]').addClass('disabled');
-                swal(data.msg);
+                swal({
+                    text: data.msg,
+                    type: 'success',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                })
             }
         })
     })

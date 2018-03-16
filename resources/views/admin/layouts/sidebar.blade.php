@@ -89,8 +89,8 @@
             </li>
             <li>
                 {!! html_entity_decode(
-                    Html::link(
-                        null, 
+                    Html::linkRoute(
+                        'admin.user.index', 
                         '<i class="fa fa-users"></i> <span>' . Lang::get('custom.nav.accounts') . '</span>'
                     )
                 ) !!}

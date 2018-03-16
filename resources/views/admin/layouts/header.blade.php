@@ -61,9 +61,12 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left" style="float: left;">
-                                {!! Html::link(
-                                    null, 
+                                {!! Html::linkRoute(
+                                    'admin.user.show', 
                                     Lang::get('custom.common.profile_button'), 
+                                    [
+                                        'id' => Auth::user()->id,
+                                    ],
                                     [
                                         'class' => 'btn btn-default btn-flat'
                                     ]
