@@ -55,7 +55,7 @@ class Product extends Model
                     ->with('category')
                     ->orderBy('deleted_at')
                     ->orderBy('name')
-                    ->get();;
+                    ->get();
     }
 
     public function scopeProductId($query, $product)

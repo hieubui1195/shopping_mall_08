@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Models\User;
+use App\Models\Image;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -27,7 +28,6 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -62,10 +62,24 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+
+        $userId = User::userId($data['email']);
+        Image::create([
+            'image' => config('custom.image.avatar_default'),
+            'imageable_id' => $userId,
+            'imageable_type' => config('custom.image.user'),
+        ]);
+
+        return $user;
+    }
+
+    protected function redirectTo()
+    {
+        return redirect()->back();
     }
 }
