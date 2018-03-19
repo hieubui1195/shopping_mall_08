@@ -1,4 +1,5 @@
 @extends('user.layouts.layout')
+
 @section('content')
 <!-- HOME -->
 <div id="home">
@@ -51,38 +52,45 @@
                 <!-- section title -->
                 <div class="col-md-12">
                     <div class="section-title">
-                        <h2 class="title">{!!Lang::get('custom.common.latestproduct')!!}</h2>
+                        <h2 class="title">{!! Lang::get('custom.common.latestproduct') !!}</h2>
                     </div>
                 </div>
                 <!-- section title -->
 
                 <!-- Product Single -->
-                <div class="col-md-3 col-sm-6 col-xs-6">
-                    <div class="product product-single">
-                        <div class="product-thumb">
-                            <button class="main-btn quick-view"><i class="fa fa-search-plus"></i>{!!Lang::get('custom.common.view')!!}
-                            </button>
-                            {{Html::image('assets/img/product01.jpg')}}
-                        </div>
-                        <div class="product-body">
-                            <h3 class="product-price">$32.50</h3>
-                            <div class="product-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-o empty"></i>
+                @foreach ($products as $product)
+                    <div class="col-md-3 col-sm-6 col-xs-6">
+                        <div class="product product-single">
+                            <div class="product-thumb">
+                                <button class="main-btn quick-view"><i class="fa fa-search-plus"></i>{!! Lang::get('custom.common.view') !!}
+                                </button>
+                                {{ Html::image($product->images[0]['image']) }}
                             </div>
-                            <h2 class="product-name">{{ HTML::link('#', 'Sản Phẩm 1')}}</h2>
-                            <div class="product-btns">
-                                <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                ~-~-~-~
-                                <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i>{{Lang::get('custom.common.addcart')}} </button>
+                            <div class="product-body">
+                                <h3 class="product-price">{{ $product->price }} @lang('custom.common.currency')</h3>
+                                <div class="product-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-o empty"></i>
+                                </div>
+                                <h2 class="product-name">{{ Html::link('#', 'Sản Phẩm 1')}}
+                                    @foreach ($product->reviews as $review)
+                                        {{ $review->rate }}
+                                    @endforeach
+                                    {{-- {{ $product->reviews }} --}}
+                                </h2>
+                                <div class="product-btns">
+                                    <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+                                    ~-~-~-~
+                                    <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i>{{ Lang::get('custom.common.addcart') }} </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- /Product Single -->
+                    <!-- /Product Single -->
+                @endforeach
             </div>
             <!-- /row -->
         </div>

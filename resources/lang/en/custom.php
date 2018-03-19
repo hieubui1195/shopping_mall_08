@@ -162,6 +162,14 @@ return [
         'sortby' => 'Sort By : ',
         'price' => 'Price',
         'page' => 'Page : ',
+        'require_login' => 'You are not logged in. Please click here to <a href="/register" style="text-decoration: underline;">register</a> or <a href="/register" style="text-decoration: underline;">login</a>.',
+        'title_review' => 'Title of Review',
+        'content_review' => 'Content of Review',
+        'delete' => 'Delete',
+        'cancel' => 'Cancel',
+        'load' => 'Load More',
+        'reset_password' => 'Reset Password',
+        'send_email' => 'Send Email',
     ],
 
     'validation' => [
