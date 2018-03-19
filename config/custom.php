@@ -28,6 +28,7 @@ return [
     ],
 
     'default_password' => '123456',
+    'default_limit' => 2,
 
     'default_parent' => 0,
     'defaultZero' => 0,

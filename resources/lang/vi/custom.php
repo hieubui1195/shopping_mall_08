@@ -162,6 +162,14 @@ return [
         'sortby' => 'Sắp xếp theo : ',
         'price' => 'Giá',
         'page' => 'Trang : ',
+        'require_login' => 'Bạn chưa đăng nhập. Vui lòng chọn tại đây để <a href="/register" style="text-decoration: underline;">đăng ký tài khoản</a> hoặc <a href="/login" style="text-decoration: underline;">đăng nhập</a>.',
+        'title_review' => 'Tiêu đề của đánh gía',
+        'content_review' => 'Nội dung của đánh gía',
+        'delete' => 'Xóa',
+        'cancel' => 'Hủy',
+        'load' => 'Xem thêm',
+        'reset_password' => 'Đặt lại mật khẩu',
+        'send_email' => 'Gửi Email',
     ],
 
     'validation' => [

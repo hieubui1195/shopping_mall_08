@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{!!Lang::get('custom.header.welcome')!!}</title>
 
@@ -113,9 +114,13 @@
                                 <div class="header-btns-icon">
                                     <i class="fa fa-user-o"></i>
                                 </div>
-                                <strong class="text-uppercase">{!!Lang::get('custom.common.myaccount')!!}<i class="fa fa-caret-down"></i></strong>
+                                <strong class="text-uppercase">{!! Lang::get('custom.common.myaccount') !!}<i class="fa fa-caret-down"></i></strong>
                             </div>
-                            <span>Ten TK</span>
+                            <span>
+                                @if (Auth::user())
+                                    {{ Auth::user()->name }}
+                                @endif
+                            </span>
                             <ul class="custom-menu">
                                 
                                 @auth
@@ -131,25 +136,38 @@
                                         '<li>' .Lang::get('custom.common.wishlist') . '<i class="fa fa-heart-o"></i> </li>'
                                     )
                                 ) !!}
-                                {!! html_entity_decode(
-                                    Html::link(
-                                        null, 
-                                        '<li>' .Lang::get('custom.common.logout') . '<i class="fa fa-lock-alt"></i> </li>'
-                                    )
+                                
+                                {!! Html::linkRoute(
+                                    'logout', 
+                                    Lang::get('custom.common.logout_button'), 
+                                    null, 
+                                    [
+                                        'onclick' => 'event.preventDefault();document.getElementById("logout-form").submit();'
+                                    ]
                                 ) !!}
+                                
+                                {!! Form::open([
+                                    'id' => 'logout-form', 
+                                    'method' => 'POST', 
+                                    'route' => 'logout', 
+                                    'style' => 'display: none;',
+                                    ]
+                                ) !!}
+                                
+                                {!! Form::close() !!}
                                 @endauth
 
                                 @guest
                                 {!! html_entity_decode(
-                                    Html::link(
-                                        null, 
-                                        '<li>' .Lang::get('custom.common.login') . '<i class="fa fa-unlock-alt"></i> </li>'
+                                    Html::linkRoute(
+                                        'login', 
+                                        '<li>' .Lang::get('custom.common.login') . ' <i class="fa fa-unlock-alt"></i> </li>'
                                     )
                                 ) !!}
                                 {!! html_entity_decode(
-                                    Html::link(
-                                        null, 
-                                        '<li>' .Lang::get('custom.common.register') . '<i class="fa fa-user-plus"></i> </li>'
+                                    Html::linkRoute(
+                                        'register', 
+                                        '<li>' .Lang::get('custom.common.register') . ' <i class="fa fa-user-plus"></i> </li>'
                                     )
                                 ) !!}
                                 @endguest
@@ -182,12 +200,12 @@
                                     <div class="shopping-cart-list">
                                         <div class="product product-widget">
                                             <div class="product-thumb">
-                                                {{ HTML::image('assets/img/thumb-product01.jpg', 'a picture') }}
+                                                {{ Html::image('assets/img/thumb-product01.jpg', 'a picture') }}
                                             </div>
                                             <div class="product-body">
                                                 <h3 class="product-price"> $32.50 <span class="qty">x3</span></h3>
                                                 <h2 class="product-name">
-                                                    {{ HTML::link('#', 'Product Name Goes Here')}}
+                                                    {{ Html::link('#', 'Product Name Goes Here')}}
                                                 </h2>
                                             </div>
                                             <button class="cancel-btn"><i class="fa fa-trash"></i></button>
@@ -275,13 +293,13 @@
                         <!-- footer logo -->
                         <div class="footer-logo">
                             {!! html_entity_decode(
-                                            Html::link(
-                                                '#',
-                                                Html::image('assets/img/logo.png','logo'),
-                                                [
-                                                    'class' => 'logo'
-                                                ]
-                                            )
+                                Html::link(
+                                    '#',
+                                    Html::image('assets/img/logo.png','logo'),
+                                    [
+                                        'class' => 'logo'
+                                    ]
+                                )
                             ) !!}
                         </div>
                         <!-- /footer logo -->
@@ -323,7 +341,7 @@
                 <!-- footer widget -->
                 <div class="col-md-3 col-sm-6 col-xs-6">
                     <div class="footer">
-                        <h3 class="footer-header">{!!Lang::get('custom.common.myaccount')!!}</h3>
+                        <h3 class="footer-header">{!! Lang::get('custom.common.myaccount') !!}</h3>
                         <ul class="list-links">
                             @auth
                             {!! html_entity_decode(
@@ -372,8 +390,8 @@
                     <div class="footer">
                         <h3 class="footer-header">{{Lang::get('custom.common.customerservice')}}</h3>
                         <ul class="list-links">
-                            <li>{{ HTML::link('#', 'About Us')}}</li>
-                            <li>{{ HTML::link('#', 'FAQ')}}</li>
+                            <li>{{ Html::link('#', 'About Us')}}</li>
+                            <li>{{ Html::link('#', 'FAQ')}}</li>
                         </ul>
                     </div>
                 </div>
@@ -387,13 +405,18 @@
                         
                         {{ Form::open() }}
                             <div class="form-group">
-                                {{ Form::input('text', 'email_input', null, [
-                                                                            'class' => 'input',
-                                                                            'placeholder' => 'Enter Email Address'
-                                                                            ]) }}
+                                {{ Form::input(
+                                    'text',
+                                    'email_input',
+                                    null,
+                                    [
+                                        'class' => 'input',
+                                        'placeholder' => 'Enter Email Address',
+                                    ]
+                                ) }}
                             </div>
-                            <button class="primary-btn">{{Lang::get('custom.common.receive')}}</button>
-                        {{Form::close()}}
+                            <button class="primary-btn">{{ Lang::get('custom.common.receive') }}</button>
+                        {{ Form::close() }}
 
                     </div>
                 </div>
@@ -410,7 +433,5 @@
     @section('script')
         @show
 
-
 </body>
-
 </html>
