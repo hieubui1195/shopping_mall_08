@@ -18,7 +18,7 @@
                             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
                             <span class="fa fa-ellipsis-h"></span></button>
                             <ul class="dropdown-menu dropdown-menu-right">
-                                <li>                                
+                                <li>                         
                                     {!! Html::linkRoute(
                                         'edit-review',
                                         Lang::get('custom.common.edit'),

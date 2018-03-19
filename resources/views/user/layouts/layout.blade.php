@@ -84,7 +84,10 @@
                         {!! html_entity_decode(
                             Html::link(
                                 null, 
-                                Html::image('assets/img/logo.png'),  
+                                Html::image(
+                                    'images/bg-login.jpg',
+                                    'Logo'
+                                ),  
                                 [
                                     'class' => 'logo'
                                 ]
@@ -130,12 +133,6 @@
                                         '<li>' .Lang::get('custom.common.myaccount') . '<i class="fa fa-user-o"></i> </li>'
                                     )
                                 ) !!}
-                                {!! html_entity_decode(
-                                    Html::link(
-                                        null, 
-                                        '<li>' .Lang::get('custom.common.wishlist') . '<i class="fa fa-heart-o"></i> </li>'
-                                    )
-                                ) !!}
                                 
                                 {!! Html::linkRoute(
                                     'logout', 
@@ -177,46 +174,7 @@
 
                         <!-- Cart -->
                         <li class="header-cart dropdown default-dropdown">
-                            
-                            {!! html_entity_decode(
-                                Html::link(
-                                    null, 
-                                    '<div class="header-btns-icon">
-                                        <i class="fa fa-shopping-cart"></i>
-                                        <span class="qty">'.'3'.'</span> </div>
-                                        <strong class="text-uppercase">' . Lang::get('custom.common.mycart') . '</strong>
-                                        <br>
-                                        <span>' .'99$'. '</span>',
-                                    [
-                                        'class' => 'dropdown-toggle',
-                                        'data-toggle' => 'dropdown',
-                                        'aria-expanded' => 'true',
-                                    ]
-                                )
-                            ) !!}
-
-                            <div class="custom-menu">
-                                <div id="shopping-cart">
-                                    <div class="shopping-cart-list">
-                                        <div class="product product-widget">
-                                            <div class="product-thumb">
-                                                {{ Html::image('assets/img/thumb-product01.jpg', 'a picture') }}
-                                            </div>
-                                            <div class="product-body">
-                                                <h3 class="product-price"> $32.50 <span class="qty">x3</span></h3>
-                                                <h2 class="product-name">
-                                                    {{ Html::link('#', 'Product Name Goes Here')}}
-                                                </h2>
-                                            </div>
-                                            <button class="cancel-btn"><i class="fa fa-trash"></i></button>
-                                        </div>
-                                    </div>
-                                    <div class="shopping-cart-btns">
-                                        <button class="main-btn">{{ Lang::get('custom.common.viewcart') }}</button>
-                                        <button class="primary-btn">{{ Lang::get('custom.common.checkout') }} <i class="fa fa-arrow-circle-right"></i></button>
-                                    </div>
-                                </div>
-                            </div>
+                            @include('user.partials.cart-list')
                         </li>
                         <!-- /Cart -->
 
@@ -295,7 +253,7 @@
                             {!! html_entity_decode(
                                 Html::link(
                                     '#',
-                                    Html::image('assets/img/logo.png','logo'),
+                                    Html::image('images/bg-login.jpg','logo'),
                                     [
                                         'class' => 'logo'
                                     ]

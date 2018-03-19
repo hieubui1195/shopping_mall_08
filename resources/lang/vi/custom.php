@@ -151,7 +151,7 @@ return [
         'name' => 'Tên',
         'address' => 'Địa Chỉ',
         'instock' => 'Còn Hàng',
-        'availability' => 'Khả dụng : ',
+        'availability' => 'Khả dụng: :qty',
         'outstock' => 'Hết Hàng',
         'description' => 'Mô Tả',
         'details' => 'Chi Tiết',
@@ -170,6 +170,10 @@ return [
         'load' => 'Xem thêm',
         'reset_password' => 'Đặt lại mật khẩu',
         'send_email' => 'Gửi Email',
+        'item_qty' => 'x :qty',
+        'no_reviews' => 'Không có bài đánh gía nào',
+        'order_info' => 'Thông tin mua hàng',
+        'no_cart' => 'Chưa có sản phẩm nào được thêm vào giỏ hàng',
     ],
 
     'validation' => [
@@ -189,6 +193,7 @@ return [
         'order_approved' => 'Đơn hàng đã được chấp nhận',
         'order_rejected' => 'Đơn hàng đã bị từ chối',
         'order_item_rejected' => 'Mặt hàng này đã bị từ chối',
+        'order_success' => 'Đơn hàng này đã được đặt',
         'promotion_added' => 'Chương trình khuyến mãi mới đã được thêm vào',
         'promotion_edited' => 'Chương trình khuyến mãi đã được cập nhật',
         'promotion_deleted' => 'Chương trình khuyến mãi đã được xóa',
