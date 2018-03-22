@@ -151,7 +151,7 @@ return [
         'name' => 'Name',
         'address' => 'Address',
         'instock' => 'In Stock',
-        'availability' => 'Availability : ',
+        'availability' => 'Availability: :qty',
         'outstock' => 'Out of Stock',
         'description' => 'Description',
         'details' => 'Details',
@@ -170,6 +170,10 @@ return [
         'load' => 'Load More',
         'reset_password' => 'Reset Password',
         'send_email' => 'Send Email',
+        'item_qty' => 'x :qty',
+        'no_reviews' => 'No reviews',
+        'order_info' => 'Order information',
+        'no_cart' => 'No items were added to the cart',
     ],
 
     'validation' => [
@@ -189,6 +193,7 @@ return [
         'order_approved' => 'This order has been already approved',
         'order_rejected' => 'This order has been already rejected',
         'order_item_rejected' => 'This item has been already rejected',
+        'order_success' => 'This order has been ordered',
         'promotion_added' => 'New promotion has already been added',
         'promotion_edited' => 'The promotion has already been updated',
         'promotion_deleted' => 'The promotion has already been deleted',
