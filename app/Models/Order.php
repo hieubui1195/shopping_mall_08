@@ -39,4 +39,8 @@ class Order extends Model
                     ->get();
     }
 
+    public function scopeOrderFind($query, $id)
+    {
+        return $query->find($id);
+    }
 }

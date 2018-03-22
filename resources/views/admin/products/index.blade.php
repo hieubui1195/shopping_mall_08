@@ -125,7 +125,7 @@
                                         {{ $product->amount }}
                                     </td>
                                     <td>
-                                        {{ $product->price }}
+                                        {{ number_format($product->price) }}
                                     </td>
                                     <td>
                                         @if ($product->amount == 0)
