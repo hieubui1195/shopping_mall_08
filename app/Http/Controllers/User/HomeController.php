@@ -6,14 +6,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Requests\ReviewRequest;
 use App\Http\Controllers\Controller;
+use App\Models\PromotionDetail;
 use App\Models\Image;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Review;
-use App\Models\Cart;
-use Illuminate\Support\Facades\Input;
 use Session;
 use Auth;
+use Cart;
 
 class HomeController extends Controller
 {
@@ -23,7 +23,6 @@ class HomeController extends Controller
         $images = Product::productImages($id);
         $arrImg = [];
         for ($i = 0; $i < count($images[0]['images']); $i++) { 
-            $images[0]['images'][$i]['image'];
             array_push($arrImg, $images[0]['images'][$i]['image']);
         } 
 
@@ -41,7 +40,7 @@ class HomeController extends Controller
             foreach ($votes as $vote) {
                 $totalVote += $vote;
             }
-            $avgVote = round($totalVote / count($votes));
+            $avgVote = floor($totalVote / count($votes));
         }
 
         $reviewLimits = Review::reviewLimit($id);
@@ -98,7 +97,7 @@ class HomeController extends Controller
             'rate' => $request->rate,
         ]);
 
-        $reviewLimits = Review::loadMore($request->id, $request->productId);
+        $reviewLimits = Review::reviewLimit($request->productId);
         
         if (!$reviewLimits->isEmpty()) {
             return view('user.partials.review', compact('reviewLimits'));
@@ -122,5 +121,111 @@ class HomeController extends Controller
         if (!$reviewLimits->isEmpty()) {
             return view('user.partials.review', compact('reviewLimits'));
         }
+    }
+
+    public function checkQty(Request $request)
+    {
+        $status = true;
+        $product = Product::productFind($request->id);
+        if ($request->qtyCompare > $product->amount) {
+            $status = false;
+        }
+
+        return response()->json([
+            'status' => $status,
+            'qty' => $product->amount,
+        ]);
+    }
+
+    public function getHome()
+    {
+        $images = Image::imageType(config('custom.image.promotion'))->get();
+        $lastest_products = Product::orderTake()->get();
+        $promotion_products = PromotionDetail::orderTake()->get();
+
+        return view('user.layouts.index',[
+            'images' => $images,
+            'lastest_products' => $lastest_products,
+            'promotion_products' => $promotion_products,
+        ]);
+    }
+
+    public function getSearch(Request $request)
+    {
+        $search = $request->input('search');
+        if ($request->type) {
+            switch ($request->type) {
+                case config('custom.defaultOne'):
+                    $products = Product::search($search, 'price', 'asc');
+                    break;
+                
+                case config('custom.defaultTwo'):
+                    $products = Product::search($search, 'price', 'desc');
+                    break;
+            }
+        } else {
+            $products = Product::search($search, 'price', 'asc');
+        }
+
+        return view('user.layouts.search',compact('products'));
+    }
+
+    public function getCategory(Request $request, $type)
+    {
+        if ($request->ajax()) {
+            switch ($request->type) {
+                case config('custom.defaultOne'):
+                    $product_in_cates = Product::orderCategory($type, 'price', 'asc');
+                    break;
+                
+                case config('custom.defaultTwo'):
+                    $product_in_cates = Product::orderCategory($type, 'price', 'desc');
+                    break;
+            }
+        } else {
+            $product_in_cates = Product::orderCategory($type, 'price', 'asc');
+        }
+
+        return view('user.layouts.products',compact('product_in_cates'));
+    }
+
+    public function getLatestProduct(Request $request)
+    {
+        if ($request->ajax()) {
+            switch ($request->type) {
+                case config('custom.defaultOne'):
+                    $latest_products_all = Product::orderPaginate('price', 'asc');
+                    break;
+                
+                case config('custom.defaultTwo'):
+                    $latest_products_all = Product::orderPaginate('price', 'desc');
+                    break;
+            }
+
+        } else {
+            $latest_products_all = Product::orderPaginate('id', 'desc');
+        }
+
+        return view('user.layouts.latestproducts',compact('latest_products_all'));
+    }
+
+    public function getPromotionProduct(Request $request)
+    {
+        if ($request->ajax()) {
+            switch ($request->type) {
+                case config('custom.defaultOne'):
+                    $promotion_products_all = PromotionDetail::orderPaginate('percent', 'asc');
+                    break;
+                
+                case config('custom.defaultTwo'):
+                    $promotion_products_all = PromotionDetail::orderPaginate('percent', 'desc');
+                    break;
+            }
+
+        } else {
+            $promotion_products_all = PromotionDetail::orderPaginate('percent', 'desc');
+        }
+        
+        return view('user.layouts.promotionproducts',compact('promotion_products_all'));
     }
 }

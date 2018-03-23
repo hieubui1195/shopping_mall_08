@@ -174,6 +174,11 @@ return [
         'no_reviews' => 'No reviews',
         'order_info' => 'Order information',
         'no_cart' => 'No items were added to the cart',
+        'sel_sort' => '--Select Sort--',
+        'price_desc' => 'Price descending',
+        'price_asc' => 'Price ascending',
+        'promotion_desc' => 'Promotion descending',
+        'promotion_asc' => 'Promotion ascending'
     ],
 
     'validation' => [
