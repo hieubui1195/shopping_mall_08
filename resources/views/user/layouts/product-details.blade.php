@@ -103,6 +103,8 @@
                                             '<i class="fa fa-shopping-cart"></i> ' . Lang::get('custom.common.addcart'),
                                             [
                                                 'class' => 'primary-btn add-to-cart',
+                                                'data-id' => $product->id,
+                                                'data-price' => ($promotion) ? ceil($product->price * (100 - $promotion->percent)) / 100 : $product->price,
                                             ]
                                         )
                                     ) !!}

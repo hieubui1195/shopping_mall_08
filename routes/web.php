@@ -10,7 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::group(['middleware' => 'locale'], function() {
     
     Route::get('change-language/{language}', 'HomeController@changeLanguage')->name('change-language');
@@ -20,29 +19,50 @@ Route::group(['middleware' => 'locale'], function() {
     Route::group(['namespace' => 'User'], function() {
 
         Route::get('/', [
-                            'as' => 'home',
-                            'uses' => 'HomeController@getHome'
-                            ]);
+            'as' => 'home',
+            'uses' => 'HomeController@getHome'
+        ]);
+
+        Route::get('/search', [
+            'as' => 'search',
+            'uses' => 'HomeController@getSearch'
+        ]);
 
         Route::get('/category/{type}', [
-                                'as' => 'category',
-                                'uses' => 'HomeController@getCate'
-                                ]);
-
-        Route::get('/product/{id}', [
-                                'as' => 'product',
-                                'uses' => 'HomeController@getProd'
-                                ]);
+            'as' => 'category',
+            'uses' => 'HomeController@getCategory'
+        ]);
 
         Route::get('/buyproduct/{id}', [
-                                'as' => 'buyproduct',
-                                'uses' => 'HomeController@getBuyProd'
-                                ]);
+            'as' => 'buyproduct',
+            'uses' => 'HomeController@getBuyProduct'
+        ]);
 
-        Route::get('/cart', [
-                                'as' => 'cart',
-                                'uses' => 'HomeController@getCart'
-                                ]);
+        Route::get('/latestproduct', [
+            'as' => 'latestproduct',
+            'uses' => 'HomeController@getLatestProduct'
+        ]);
+
+        Route::get('/promotionproduct', [
+            'as' => 'promotionproduct',
+            'uses' => 'HomeController@getPromotionProduct'
+        ]);
+
+        Route::get('/product/{id}', [
+            'as' => 'product',
+            'uses' => 'HomeController@getProd'
+        ]);
+
+        Route::post('/cart', 'CartController@cart');
+        Route::post('/remove-item', 'CartController@removeItem');
+        Route::post('/update-cart', 'CartController@updateCart');
+        Route::get('/checkout', [
+            'uses' => 'CartController@getCheckout',
+            'as' => 'checkout',
+        ]);
+        Route::post('/checkout', 'CartController@checkout');
+
+        Route::post('/check-qty', 'HomeController@checkQty');
 
         Route::post('/check-review', ['uses' => 'HomeController@checkReview']);
         Route::post('/review', ['uses' => 'HomeController@sendReview']);

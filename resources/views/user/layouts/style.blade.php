@@ -13,3 +13,4 @@
 {!! Html::style('assets/sweetalert2/dist/sweetalert2.min.css') !!}
 <!-- Custom stlylesheet -->
 {{ Html::style('assets/css/style.css') }}
+{{ Html::style('css/user/main.css')}}
