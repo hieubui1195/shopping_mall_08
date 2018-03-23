@@ -1,0 +1,19 @@
+.header-logo {
+    margin-right: 10px;
+}
+
+.header-logo .logo>img {
+    width: 200px;
+}
+
+.product.product-single .product-thumb {
+    height: 250px;
+}
+
+.product.product-single .product-body {
+    height: 200px;
+}
+
+.pagination {
+    margin: 0px;
+}

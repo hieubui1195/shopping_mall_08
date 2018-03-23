@@ -1,13 +1,16 @@
 $(document).ready(function() {
     $('.add-to-cart').click(function(event) {
         event.preventDefault();
-        var productId = parseInt($('#product-id-cart').val());
-        var qty = $('#qty').val();
-        if (qty > parseInt($('.qty-available').text())) {
-            qty = parseInt($('.qty-available').text());
-            $('#qty').val(qty);
+        var productId = $(this).attr('data-id');
+        var qty = 1;
+        if ($('#qty').val()) {
+            qty = $('#qty').val();
+            if (qty > parseInt($('.qty-available').text())) {
+                qty = parseInt($('.qty-available').text());
+                $('#qty').val(qty);
+            }
         }
-        var price = parseInt($('#price').val());
+        var price = $(this).attr('data-price');
         addCart(productId, qty, price);
     })
 
@@ -16,7 +19,6 @@ $(document).ready(function() {
         var rowId = $(this).attr('data-id');
         removeItem(rowId);
     })
-
 
     $('.qty-checkout').change(function(event) {
         event.preventDefault();

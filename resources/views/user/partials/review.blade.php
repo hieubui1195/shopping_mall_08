@@ -54,7 +54,6 @@
         </div>
     </div>
 @endforeach
-
 <div id="remove-row">
     {!! Form::button(
         Lang::get('custom.common.load'),

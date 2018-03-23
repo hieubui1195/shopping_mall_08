@@ -22,7 +22,9 @@
                         {{ Html::image($item->options->image) }}
                     </div>
                     <div class="product-body">
-                        <h3 class="product-price"> {{ $item->price }} @lang('custom.common.currency') <span class="qty">@lang('custom.common.item_qty', ['qty' => $item->qty ])</span></h3>
+                        <h3 class="product-price">
+                            {{ number_format($item->price, config('custom.defaultZero'), '', '.') }} @lang('custom.common.currency') <span class="qty">@lang('custom.common.item_qty', ['qty' => $item->qty ])</span>
+                        </h3>
                         <h2 class="product-name">
                             {{ Html::linkRoute('product', $item->name, $item->id)}}
                         </h2>
