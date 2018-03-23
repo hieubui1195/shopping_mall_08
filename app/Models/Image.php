@@ -41,4 +41,9 @@ class Image extends Model
                     ->delete();
     }
 
+    public function scopeImageType($query, $type)
+    {
+        return $query->where('imageable_type', $type);
+    }
+
 }

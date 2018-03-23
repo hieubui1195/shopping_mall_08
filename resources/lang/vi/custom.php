@@ -174,6 +174,11 @@ return [
         'no_reviews' => 'Không có bài đánh gía nào',
         'order_info' => 'Thông tin mua hàng',
         'no_cart' => 'Chưa có sản phẩm nào được thêm vào giỏ hàng',
+        'sel_sort' => '--Lựa chọn lọc--',
+        'price_desc' => 'Gía giảm dần',
+        'price_asc' => 'Gía tăng dần',
+        'promotion_desc' => 'Khuyến mãi giảm dần',
+        'promotion_asc' => 'Khuyến mãi tăng dần'
     ],
 
     'validation' => [

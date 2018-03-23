@@ -12,6 +12,11 @@ class Order extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'email',
+        'name',
+        'address',
+        'phone',
+        'purchase_date',
         'deliver_date',
         'state',
     ];
@@ -42,5 +47,11 @@ class Order extends Model
     public function scopeOrderFind($query, $id)
     {
         return $query->find($id);
+    }
+
+    public function scopeOrderCheck($query, $email)
+    {
+        return $query->where('email', $email)
+                    ->where('state', config('custom.defaultZero'));
     }
 }

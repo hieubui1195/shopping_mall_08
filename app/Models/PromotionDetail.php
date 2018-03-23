@@ -38,4 +38,14 @@ class PromotionDetail extends Model
         return $query->where('promotion_id', $promotionId)->delete();
     }
 
+    public function scopeOrderPaginate($query, $type, $sort)
+    {
+        return $query->orderBy($type, $sort)->paginate(config('custom.defaultEight'));
+    }
+
+    public function scopeOrderTake($query)
+    {
+        return $query->orderBy('percent', 'desc')
+                        ->take(config('custom.defaultEight'));
+    }
 }

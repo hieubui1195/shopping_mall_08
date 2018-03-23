@@ -3,10 +3,9 @@
 namespace App\Http\ViewComposers;
 
 use Illuminate\View\View;
-
 use App\Models\User;
-
 use Auth;
+use Cart;
 
 class CommonComposer
 {
@@ -28,6 +27,7 @@ class CommonComposer
 
             $view->with('avatar', $this->avatar);
         }
-        
+
+        $view->with('cart', Cart::content());
     }
 }
