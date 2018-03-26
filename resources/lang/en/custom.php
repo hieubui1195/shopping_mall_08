@@ -178,7 +178,8 @@ return [
         'price_desc' => 'Price descending',
         'price_asc' => 'Price ascending',
         'promotion_desc' => 'Promotion descending',
-        'promotion_asc' => 'Promotion ascending'
+        'promotion_asc' => 'Promotion ascending',
+        'search_result' => '<strong>:result</strong> items found with <strong>":key"</strong>',
     ],
 
     'validation' => [

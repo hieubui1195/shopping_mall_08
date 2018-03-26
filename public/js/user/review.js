@@ -207,6 +207,8 @@ function editReview(id, productId, title, content, rate) {
         success: function(data) {
             clearForm();
             $('.product-reviews').html(data);
+            $('#send-review').attr('style', 'display: none;');
+            $('#cancel-review').attr('style', 'display: none;');
         }
     })
 }

@@ -5,4 +5,5 @@
 {!! Html::script('assets/js/jquery.zoom.min.js') !!}
 {!! Html::script('assets/sweetalert2/dist/sweetalert2.min.js') !!}
 {!! Html::script('assets/js/main.js') !!}
+{!! Html::script('js/user/main.js') !!}
 {!! Html::script('js/user/cart.js') !!}
