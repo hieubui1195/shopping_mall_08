@@ -17,3 +17,12 @@
 .pagination {
     margin: 0px;
 }
+
+.banner>img {
+	object-fit: contain;
+}
+
+.product.product-single .product-thumb>img {
+	height: 250px;
+	object-fit: contain;
+}

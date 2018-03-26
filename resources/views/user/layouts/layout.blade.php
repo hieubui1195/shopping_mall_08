@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{!!Lang::get('custom.header.welcome')!!}</title>
+        <title>{!! Lang::get('custom.header.welcome') !!}</title>
 
         @include('user.layouts.style')
         @section('style')
@@ -22,7 +22,7 @@
             <div id="top-header">
                 <div class="container">
                     <div class="pull-left">
-                        <span>{!!Lang::get('custom.header.welcome')!!}</span>
+                        <span>@lang('custom.header.welcome')</span>
                     </div>
                     <div class="pull-right">
                         <ul class="header-top-links">
@@ -124,7 +124,6 @@
                                     @endif
                                 </span>
                                 <ul class="custom-menu">
-                                    
                                     @auth
                                     {!! html_entity_decode(
                                         Html::link(
@@ -136,9 +135,9 @@
                                     {!! Html::linkRoute(
                                         'logout', 
                                         Lang::get('custom.common.logout_button'), 
-                                        null, 
+                                        [], 
                                         [
-                                            'onclick' => 'event.preventDefault();document.getElementById("logout-form").submit();'
+                                            'class' => 'logout',
                                         ]
                                     ) !!}
                                     
@@ -205,7 +204,7 @@
                         <span class="menu-header"><i class="fa fa-bars"></i></span>
                         <ul class="menu-list">
                             <li>
-                                {{ HTML::linkRoute('home', 'Home')}}
+                                {{ Html::linkRoute('home', 'Home')}}
                             </li>
                             @foreach($cates as $cate)
                             <li class="dropdown default-dropdown">
@@ -223,7 +222,7 @@
                                 <ul class="custom-menu">
                                 @foreach($sub_cates as $sub_cate)
                                     @if( $sub_cate->parent_id == $cate->id)
-                                    <li>{{ HTML::linkRoute('category',$sub_cate->name,$sub_cate->id)}}</li>
+                                        <li>{{ Html::linkRoute('category', $sub_cate->name, $sub_cate->id) }}</li>
                                     @endif
                                 @endforeach
                                 </ul>
@@ -264,7 +263,7 @@
                             </div>
                             <!-- /footer logo -->
 
-                            <p>{{Lang::get('custom.common.desc')}}</p>
+                            <p>@lang('custom.common.desc')</p>
 
                             <!-- footer social -->
                             <ul class="footer-social">
@@ -301,36 +300,47 @@
                     <!-- footer widget -->
                     <div class="col-md-3 col-sm-6 col-xs-6">
                         <div class="footer">
-                            <h3 class="footer-header">{!! Lang::get('custom.common.myaccount') !!}</h3>
+                            <h3 class="footer-header">@lang('custom.common.myaccount')</h3>
                             <ul class="list-links">
                                 @auth
-                                {!! html_entity_decode(
-                                    Html::link(
-                                        null, 
-                                        '<li>' . Lang::get('custom.common.myaccount') . '</li>'
-                                    )
-                                ) !!}
-                                {!! html_entity_decode(
-                                    Html::link(
-                                        null, 
-                                        '<li>' . Lang::get('custom.common.logout') . '</li>'
-                                    )
-                                ) !!}
+                                    {!! html_entity_decode(
+                                        Html::link(
+                                            null, 
+                                            '<li>' . Lang::get('custom.common.myaccount') . '</li>'
+                                        )
+                                    ) !!}
+                                    {!! html_entity_decode(
+                                        Html::linkRoute(
+                                            'logout', 
+                                            '<li>' . Lang::get('custom.common.logout') . '</li>',
+                                            [],
+                                            [
+                                                'class' => 'logout',
+                                            ]
+                                        )
+                                    ) !!}
+                                    {!! Form::open([
+                                        'id' => 'logout-form', 
+                                        'method' => 'POST', 
+                                        'route' => 'logout', 
+                                        'style' => 'display: none;',
+                                        ]
+                                    ) !!}
                                 @endauth
 
                                 @guest
-                                {!! html_entity_decode(
-                                    Html::link(
-                                        null, 
-                                        '<li>' . Lang::get('custom.common.login') . '</li>'
-                                    )
-                                ) !!}
-                                {!! html_entity_decode(
-                                    Html::link(
-                                        null, 
-                                        '<li>' . Lang::get('custom.common.register') . '</li>'
-                                    )
-                                ) !!}
+                                    {!! html_entity_decode(
+                                        Html::linkRoute(
+                                            'login', 
+                                            '<li>' . Lang::get('custom.common.login') . '</li>'
+                                        )
+                                    ) !!}
+                                    {!! html_entity_decode(
+                                        Html::linkRoute(
+                                            'register', 
+                                            '<li>' . Lang::get('custom.common.register') . '</li>'
+                                        )
+                                    ) !!}
                                 @endguest
                             </ul>
                         </div>
@@ -342,7 +352,7 @@
                     <!-- footer widget -->
                     <div class="col-md-3 col-sm-6 col-xs-6">
                         <div class="footer">
-                            <h3 class="footer-header">{{Lang::get('custom.common.customerservice')}}</h3>
+                            <h3 class="footer-header">@lang('custom.common.customerservice')</h3>
                             <ul class="list-links">
                                 <li>{{ Html::link('#', 'About Us')}}</li>
                                 <li>{{ Html::link('#', 'FAQ')}}</li>
@@ -354,8 +364,8 @@
                     <!-- footer subscribe -->
                     <div class="col-md-3 col-sm-6 col-xs-6">
                         <div class="footer">
-                            <h3 class="footer-header">{{Lang::get('custom.common.news')}}</h3>
-                            <p>{{Lang::get('custom.common.desnews')}}</p>
+                            <h3 class="footer-header">@lang('custom.common.news')</h3>
+                            <p>@lang('custom.common.desnews')</p>
                             
                             {{ Form::open() }}
                                 <div class="form-group">
@@ -369,7 +379,7 @@
                                         ]
                                     ) }}
                                 </div>
-                                <button class="primary-btn">{{ Lang::get('custom.common.receive') }}</button>
+                                <button class="primary-btn">@lang('custom.common.receive')</button>
                             {{ Form::close() }}
 
                         </div>

@@ -31,7 +31,7 @@
 
         <!-- Main content -->
         <section class="content">
-
+            {!! Form::hidden('confirm', Lang::get('custom.form.confirm_delete')) !!}
             <!-- Default box -->
             <div class="box">
                 <div class="box-header with-border">
@@ -125,7 +125,7 @@
                                         {{ $product->amount }}
                                     </td>
                                     <td>
-                                        {{ number_format($product->price) }}
+                                        {{ number_format($product->price, 0, '', '.') }}
                                     </td>
                                     <td>
                                         @if ($product->amount == 0)

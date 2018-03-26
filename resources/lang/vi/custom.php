@@ -178,7 +178,8 @@ return [
         'price_desc' => 'Gía giảm dần',
         'price_asc' => 'Gía tăng dần',
         'promotion_desc' => 'Khuyến mãi giảm dần',
-        'promotion_asc' => 'Khuyến mãi tăng dần'
+        'promotion_asc' => 'Khuyến mãi tăng dần',
+        'search_result' => '<strong>:result</strong> mặt hàng được tìm thấy với <strong>":key"</strong>',
     ],
 
     'validation' => [

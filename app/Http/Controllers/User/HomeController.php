@@ -107,7 +107,7 @@ class HomeController extends Controller
     public function deleteReview(Request $request, $id)
     {
         if ($request->ajax()) {
-            Review::destroy($request->id);
+            // Review::destroy($request->id);
             $reviewLimits = Review::reviewLimit($request->productId);
 
             return view('user.partials.review', compact('reviewLimits'));
@@ -155,6 +155,7 @@ class HomeController extends Controller
         $search = $request->input('search');
         if ($request->type) {
             switch ($request->type) {
+                case config('custom.defaultZero'):
                 case config('custom.defaultOne'):
                     $products = Product::search($search, 'price', 'asc');
                     break;
@@ -167,13 +168,14 @@ class HomeController extends Controller
             $products = Product::search($search, 'price', 'asc');
         }
 
-        return view('user.layouts.search',compact('products'));
+        return view('user.layouts.search', compact('products', 'search'));
     }
 
     public function getCategory(Request $request, $type)
     {
         if ($request->ajax()) {
             switch ($request->type) {
+                case config('custom.defaultZero'):
                 case config('custom.defaultOne'):
                     $product_in_cates = Product::orderCategory($type, 'price', 'asc');
                     break;
@@ -186,7 +188,7 @@ class HomeController extends Controller
             $product_in_cates = Product::orderCategory($type, 'price', 'asc');
         }
 
-        return view('user.layouts.products',compact('product_in_cates'));
+        return view('user.layouts.products', compact('product_in_cates'));
     }
 
     public function getLatestProduct(Request $request)
@@ -196,7 +198,7 @@ class HomeController extends Controller
                 case config('custom.defaultOne'):
                     $latest_products_all = Product::orderPaginate('price', 'asc');
                     break;
-                
+                case config('custom.defaultZero'):
                 case config('custom.defaultTwo'):
                     $latest_products_all = Product::orderPaginate('price', 'desc');
                     break;
@@ -206,7 +208,7 @@ class HomeController extends Controller
             $latest_products_all = Product::orderPaginate('id', 'desc');
         }
 
-        return view('user.layouts.latestproducts',compact('latest_products_all'));
+        return view('user.layouts.latestproducts', compact('latest_products_all'));
     }
 
     public function getPromotionProduct(Request $request)
@@ -216,7 +218,7 @@ class HomeController extends Controller
                 case config('custom.defaultOne'):
                     $promotion_products_all = PromotionDetail::orderPaginate('percent', 'asc');
                     break;
-                
+                case config('custom.defaultZero'):
                 case config('custom.defaultTwo'):
                     $promotion_products_all = PromotionDetail::orderPaginate('percent', 'desc');
                     break;
@@ -226,6 +228,6 @@ class HomeController extends Controller
             $promotion_products_all = PromotionDetail::orderPaginate('percent', 'desc');
         }
         
-        return view('user.layouts.promotionproducts',compact('promotion_products_all'));
+        return view('user.layouts.promotionproducts', compact('promotion_products_all'));
     }
 }
